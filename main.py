@@ -1,10 +1,10 @@
-import data_funcs as funcs
+from functions import data_funcs
 from datetime import datetime
-from ml_funcs import forest_ml
+from functions import ml_funcs
 
 start = datetime.now()
 
-game_data,details_failed,game_failed,tags_failed = funcs.get_game_data(8)
+game_data,details_failed,game_failed,tags_failed = data_funcs.get_game_data(8)
 print("Time taken to get data: ",datetime.now()-start)
 print(game_data.head(10))
 

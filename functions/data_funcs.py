@@ -158,3 +158,11 @@ def search_game(df, query):
     else:
         filtered_df = df  # If no query is provided, return the whole DataFrame
     return filtered_df
+def filter_data_by_tags(df, selected_tags):
+    if selected_tags:
+        # Filter rows where all selected genres are present in the Genres list
+        filtered_df = df[df['Tags'].apply(lambda tags: all(tag in tags for tag in selected_tags))]
+    else:
+        filtered_df = df  # If no genres selected, return the whole DataFrame
+    
+    return filtered_df
