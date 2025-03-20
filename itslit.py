@@ -1,8 +1,4 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from functions import data_funcs as funcs
 from pages import overview
 from pages import tag_evaluation
 
