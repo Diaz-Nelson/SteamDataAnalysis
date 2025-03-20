@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os 
 from functions import data_funcs as funcs
+from functions import ml_funcs as ml
 from constants import Tags,Genres
 
 def overview():
@@ -73,13 +74,32 @@ def overview():
     st.pyplot(fig,use_container_width=False)
 
 def tag_evaluation():
-    st.header("Top 225 Steam Games (March 8th)")
-    march_raw_data = pd.read_csv('Steam Data\\steam_top_games_03-08-2025_00-43-12.csv',converters={'Genres':pd.eval,'Tags':pd.eval})
-    st.write(march_raw_data)
+    dataframes = os.listdir("Steam Data")
+    generated_data = os.listdir("Generated_Data")
+    # Display DataFrame A
+    select_df_a = st.selectbox("A: Select a DataFrame to view", dataframes)
+    date = select_df_a.replace("steam_top_games_","")[:-4]
+    st.subheader("Steam Data for " + date)
+    data = pd.read_csv("Steam Data\\"+select_df_a,converters={'Genres': pd.eval, 'Tags': pd.eval})
     st.divider()
-    st.subheader("Tags Comparison (March 8th)")
-    march_tag_count = march_raw_data['Tags'].explode().value_counts()
-    tag_distribution = pd.read_csv("Generated_Data/feature_importances_03_08.csv")
-    tag_distribution = tag_distribution[["Tag","Importance"]]
-    final_tag = tag_distribution.merge(march_tag_count.rename('# Of Games with Tag'),left_on="Tag",right_index=True)
+    st.write(data)
+    st.divider()
+    st.subheader(f"Tags Comparison ({date})")
+    tag_count = data['Tags'].explode().value_counts()
+
+    tag_importance_path = "feature_importances_"+date+ ".csv"
+    try: 
+        if tag_importance_path not in generated_data:
+            st.write("Calculating Tag Importance")
+            tag_distribution,x,y = ml.forest_ml(data)
+            if st.button("Save Tag Importance"):
+                tag_distribution.to_csv("Generated_Data/" + tag_importance_path,index=False)
+                st.write("Data saved to ",tag_importance_path)      
+        else:
+            tag_distribution = pd.read_csv("Generated_Data/" + tag_importance_path)
+        tag_distribution = tag_distribution[["Tag","Importance"]]
+        final_tag = tag_distribution.merge(tag_count.rename('# Of Games with Tag'),left_on="Tag",right_index=True)
+    except:
+        st.write("Error filtering data")
+    
     st.write(final_tag)
