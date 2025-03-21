@@ -9,6 +9,7 @@ from constants import Tags,Genres
 def overview():
     st.header("Steam Data Comparison Overview")
 
+    curr_dir = os.getcwd()
     dataframes = os.listdir("Steam Data")
     # Multiselect widget for genres
     selected_genres = st.multiselect('Select genres to filter by:', Genres)
@@ -21,7 +22,7 @@ def overview():
     # Display DataFrame A
     select_df_a = st.selectbox("A: Select a DataFrame to view", dataframes)
     st.subheader(select_df_a.replace("steam_top_games_","")[:-4] + " Data Overview")
-    df_a_raw_data = pd.read_csv("Steam Data\\"+select_df_a,converters={'Genres': pd.eval, 'Tags': pd.eval})
+    df_a_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_a),converters={'Genres': pd.eval, 'Tags': pd.eval})
 
     filtered_data_df_a = df_a_raw_data
     try:
@@ -43,7 +44,7 @@ def overview():
     select_df_b = st.selectbox("B: Select a DataFrame to view", dataframes)
 
     st.subheader(select_df_b.replace("steam_top_games_","")[:-4] + " Data Overview")
-    select_df_b_raw_data = pd.read_csv("Steam Data\\"+ select_df_b,converters={'Genres': pd.eval, 'Tags': pd.eval})
+    select_df_b_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_b),converters={'Genres': pd.eval, 'Tags': pd.eval})
 
     filtered_data_df_b = select_df_b_raw_data
     try: 
@@ -76,30 +77,34 @@ def overview():
 def tag_evaluation():
     dataframes = os.listdir("Steam Data")
     generated_data = os.listdir("Generated_Data")
+    curr_dir = os.getcwd()
+
     # Display DataFrame A
-    select_df_a = st.selectbox("A: Select a DataFrame to view", dataframes)
-    date = select_df_a.replace("steam_top_games_","")[:-4]
+    select_df = st.selectbox("A: Select a DataFrame to view", dataframes)
+    date = select_df.replace("steam_top_games_","")[:-4]
+
     st.subheader("Steam Data for " + date)
-    data = pd.read_csv("Steam Data\\"+select_df_a,converters={'Genres': pd.eval, 'Tags': pd.eval})
+    data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df),converters={'Genres': pd.eval, 'Tags': pd.eval})
     st.divider()
     st.write(data)
     st.divider()
     st.subheader(f"Tags Comparison ({date})")
-    tag_count = data['Tags'].explode().value_counts()
-
-    tag_importance_path = "feature_importances_"+date+ ".csv"
+    
     try: 
+        tag_count = data['Tags'].explode().value_counts()
+        tag_importance_path = "feature_importances_"+date+ ".csv"
         if tag_importance_path not in generated_data:
             st.write("Calculating Tag Importance")
             tag_distribution,x,y = ml.forest_ml(data)
             if st.button("Save Tag Importance"):
-                tag_distribution.to_csv("Generated_Data/" + tag_importance_path,index=False)
+                tag_distribution.to_csv(os.path.join(curr_dir,"Generated_Data", tag_importance_path,index=False))
                 st.write("Data saved to ",tag_importance_path)      
         else:
-            tag_distribution = pd.read_csv("Generated_Data/" + tag_importance_path)
+            tag_distribution = pd.read_csv(os.path.join(curr_dir,"Generated_Data", tag_importance_path))
         tag_distribution = tag_distribution[["Tag","Importance"]]
         final_tag = tag_distribution.merge(tag_count.rename('# Of Games with Tag'),left_on="Tag",right_index=True)
+        st.write(final_tag)
     except:
-        st.write("Error filtering data")
+        st.write("Error filtering data, data may not contain tags")
     
-    st.write(final_tag)
+    
