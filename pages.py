@@ -107,4 +107,28 @@ def tag_evaluation():
     except:
         st.write("Error filtering data, data may not contain tags")
     
-    
+    st.divider()
+    st.subheader("Tag Distribution for " + date)
+    fig, ax = plt.subplots(figsize=(10, 6))
+    tag_count.head(20).plot(kind='pie', ax=ax)
+    ax.set_title("Tag Distribution")
+    st.pyplot(fig,use_container_width=False)
+
+def help():
+    st.header("Description")
+    st.write("This is a dashboard that allows you to compare Steam game data from different months")
+    st.write("The Overview page allows you to compare the data from two different months")
+    st.write("The Tag Evaluation page allows you to see the importance of tags in the data")
+
+    st.header("Columns")
+    st.write("Game: The name of the game")
+    st.write("Current: The current number of players when the data was collected")
+    st.write("Peak: The peak number of players that day")
+    st.write("Player Hours: The number of hours played that day")
+    st.write("App ID: The ID of the game")
+    st.write("Release Date: The date the game was released")
+    st.write("Days Since Release: The number of days since the game was released since the data was collected")
+    st.write("All Review Score: The review score of the game, the higher score the most positive reviews")
+    st.write("All Review Count: The number of reviews")
+    st.write("Recent Review Score: The review score of the game in the past month")
+    st.write("Recent Review Count: The number of reviews in the past month")
