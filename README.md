@@ -43,3 +43,13 @@ Between May 2023 and June 2023, I built a system that:
 - Add clustering to identify genre archetypes.
 - Introduce temporal trend tracking (e.g., monthly tag performance changes).
 
+
+## 🌐 Live Demo
+
+[https://steamdataanalysisnd.streamlit.app/]
+
+---
+
+## 📬 Contact
+
+Have feedback or ideas to collaborate? Feel free to reach out!
