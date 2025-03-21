@@ -62,7 +62,7 @@ def overview():
     st.divider()
     # Create bar plot
     st.subheader("Genre Counts Comparison (Feb vs. Mar)")
-    GenreCounts = pd.read_csv("Generated_Data\\GenreCounts.csv")    # Dashboard title
+    GenreCounts = pd.read_csv(os.path.join(curr_dir,"Generated_Data","GenreCounts.csv"))    # Dashboard title
 
     fig, ax = plt.subplots(figsize=(10, 6))
     GenreCounts.set_index('Genres').plot(kind='bar', ax=ax)
