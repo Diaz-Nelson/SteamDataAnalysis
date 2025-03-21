@@ -3,8 +3,12 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 import datetime
-from creds import STEAM_KEY
+import streamlit as st
 
+try:
+    from creds import STEAM_KEY
+except ImportError:
+    STEAM_KEY = st.secrets["STEAM_KEY"]
 
 # Global variables to keep track of failed requests
 get_game_failed = 0
