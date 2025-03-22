@@ -4,7 +4,7 @@ A data-driven project analyzing current gaming trends on Steam to uncover which 
 
 ## 🚀 Project Summary
 
-Between May 2023 and June 2023, I built a system that:
+Between February 2025 and March 2025, I built a system that:
 
 - Scrapes and collects data from the top 400 Steam games.
 - Analyzes the relationship between game tags and overall success.
