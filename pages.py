@@ -127,6 +127,8 @@ def help():
     st.write("Player Hours: The number of hours played that day")
     st.write("App ID: The ID of the game")
     st.write("Release Date: The date the game was released")
+    st.write("Genres: The genres of the game set by Steam")
+    st.write("Tags: The tags associated with the game set by the Community")
     st.write("Days Since Release: The number of days since the game was released since the data was collected")
     st.write("All Review Score: The review score of the game, the higher score the most positive reviews")
     st.write("All Review Count: The number of reviews")
