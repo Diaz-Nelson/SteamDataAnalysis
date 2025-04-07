@@ -1,8 +1,8 @@
-# 🎮 Steam Gaming Trends Analysis
+# Steam Gaming Trends Analysis
 
 A data-driven project analyzing current gaming trends on Steam to uncover which tags and features contribute to a game's success. This tool tracks the top games on Steam in real-time and evaluates the effectiveness of various game tags using machine learning and visual analytics.
 
-## 🚀 Project Summary
+## Project Summary
 
 Between February 2025 and March 2025, I built a system that:
 
@@ -11,14 +11,14 @@ Between February 2025 and March 2025, I built a system that:
 - Uses machine learning (Random Forest Regressor) to identify the most influential tags.
 - Visualizes key insights through an interactive Streamlit dashboard.
 
-## 📊 Key Features
+## Key Features
 
 - **Real-time Trend Tracking**: Updated insights based on current top Steam games.
 - **Tag Importance Analysis**: Discover which tags correlate with higher game success.
 - **Tag Synergy Heatmap**: Explore how tags interact and which combinations historically perform best.
 - **Success Score Model**: A custom formula to estimate how successful a game is based on multiple factors like user reviews, player engagement, and retention.
 
-## 🧠 Tech Stack
+##  Tech Stack
 
 - **Python**: Core logic and data processing
 - **Pandas & NumPy**: Data manipulation
@@ -27,16 +27,15 @@ Between February 2025 and March 2025, I built a system that:
 - **Streamlit**: Web-based interactive dashboard
 - **Steam API + Web Scraping**: Data sourcing
 
-## 📁 Folder Structure
 
 
-## 🧪 Results
+##  Results
 
 - **Model Accuracy**: Achieved a Mean Squared Error (MSE) of 0.03 and R² score of 0.6.
 - **Top Tags Identified**: Certain tags like *Open World*, *Multiplayer*, and *Survival* showed strong positive correlations with game success.
 - **Insightful Visualizations**: Dynamic charts help identify popular genre trends and successful tag synergies.
 
-## 📈 Future Improvements
+## Future Improvements
 
 - Incorporate player retention metrics (e.g., playtime over weeks).
 - Expand beyond top 400 games to improve generalizability.
