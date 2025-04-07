@@ -104,15 +104,16 @@ def tag_evaluation():
         tag_distribution = tag_distribution[["Tag","Importance"]]
         final_tag = tag_distribution.merge(tag_count.rename('# Of Games with Tag'),left_on="Tag",right_index=True)
         st.write(final_tag)
+        st.divider()
+        st.subheader("Tag Distribution for " + date)
+        fig, ax = plt.subplots(figsize=(10, 6))
+        tag_count.head(20).plot(kind='pie', ax=ax)
+        ax.set_title("Tag Distribution")
+        st.pyplot(fig,use_container_width=False)
     except:
         st.write("Error filtering data, data may not contain tags")
     
-    st.divider()
-    st.subheader("Tag Distribution for " + date)
-    fig, ax = plt.subplots(figsize=(10, 6))
-    tag_count.head(20).plot(kind='pie', ax=ax)
-    ax.set_title("Tag Distribution")
-    st.pyplot(fig,use_container_width=False)
+    
 
 def help():
     st.header("Description")
