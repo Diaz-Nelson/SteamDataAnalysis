@@ -21,7 +21,8 @@ if ans.lower() == "y":
         file_name ="steam_top_games_{}".format((datetime.now()).strftime("%m-%d-%Y_%H-%M-%S"))
     else:
         file_name = input("Enter the name of the file you would like to save the data to: ")
-    game_data.to_csv(f"{file_name}.csv", index=False)
+    game_data.to_csv(f"Steam Data/{file_name}.csv", index=False)
+
     
     print(f"Data saved to {file_name}.csv!")
 

@@ -5,6 +5,8 @@ import os
 from functions import data_funcs as funcs
 from functions import ml_funcs as ml
 from constants import Tags,Genres
+from pathlib import Path
+from datetime import datetime
 
 def overview():
     st.header("Steam Data Comparison Overview")
@@ -21,19 +23,15 @@ def overview():
 
     # Display DataFrame A
     select_df_a = st.selectbox("A: Select a DataFrame to view", dataframes)
-    st.subheader(select_df_a.replace("steam_top_games_","")[:-4] + " Data Overview")
-    df_a_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_a),converters={'Genres': pd.eval, 'Tags': pd.eval})
+    filename_A = Path(select_df_a).stem  # removes extension
+    clean_name_A = funcs.clean_str(filename_A.replace("steam_top_games_", ""))
 
+    st.subheader(f"{clean_name_A} Data Overview")
+
+    df_a_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_a),converters={'Genres': pd.eval, 'Tags': pd.eval})
     filtered_data_df_a = df_a_raw_data
     try:
-        if selected_genres:
-            filtered_data_df_a = funcs.filter_data_by_genres(filtered_data_df_a, selected_genres)
-            
-        if selected_tags:
-            filtered_data_df_a = funcs.filter_data_by_tags(filtered_data_df_a, selected_tags)
-
-        if search_query:
-            filtered_data_df_a = funcs.search_game(filtered_data_df_a, search_query)
+        filtered_data_df_a = funcs.filter_dfs(filtered_data_df_a,selected_genres,selected_tags,search_query)
     except:
         st.write("Error filtering data")
 
@@ -42,18 +40,14 @@ def overview():
     
     # Display DataFrame B
     select_df_b = st.selectbox("B: Select a DataFrame to view", dataframes)
-
-    st.subheader(select_df_b.replace("steam_top_games_","")[:-4] + " Data Overview")
+    filename_B = Path(select_df_b).stem
+    clean_name_B = funcs.clean_str(filename_B.replace("steam_top_games_",""))
+    st.subheader(f"{clean_name_B} Data Overview")
     select_df_b_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_b),converters={'Genres': pd.eval, 'Tags': pd.eval})
 
     filtered_data_df_b = select_df_b_raw_data
     try: 
-        if selected_genres:
-            filtered_data_df_b = funcs.filter_data_by_genres(filtered_data_df_b, selected_genres)
-        if selected_tags:
-            filtered_data_df_b = funcs.filter_data_by_tags(filtered_data_df_b, selected_tags)
-        if search_query:
-            filtered_data_df_b = funcs.search_game(filtered_data_df_b, search_query)
+        filtered_data_df_b = funcs.filter_dfs(filtered_data_df_b,selected_genres,selected_tags,search_query)
     except:
         st.write("Error filtering data")
 
@@ -79,14 +73,24 @@ def tag_evaluation():
     generated_data = os.listdir("Generated_Data")
     curr_dir = os.getcwd()
 
-    # Display DataFrame A
-    select_df = st.selectbox("A: Select a DataFrame to view", dataframes)
-    date = select_df.replace("steam_top_games_","")[:-4]
+    # Display DataFrames
+    select_df = st.selectbox("Select a DataFrame to view", dataframes)
+    
+    date = funcs.clean_str((Path(select_df).stem).replace("steam_top_games_",""))
+    # Multiselect widget for genres
+    selected_genres = st.multiselect('Select genres to filter by:', Genres)
+    selected_tags = st.multiselect('Select tags to filter by:', Tags)
+    # Text Input for Games
+    search_query = st.text_input('Search for a game:', '')
+    st.divider()
 
     st.subheader("Steam Data for " + date)
     data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df),converters={'Genres': pd.eval, 'Tags': pd.eval})
-    st.divider()
-    st.write(data)
+    try:
+        data = funcs.filter_dfs(data,selected_genres,selected_tags,search_query)
+        st.write(data)
+    except:
+        st.write("Failed to filter Data")
     st.divider()
     st.subheader(f"Tags Comparison ({date})")
     
@@ -96,9 +100,6 @@ def tag_evaluation():
         if tag_importance_path not in generated_data:
             st.write("Calculating Tag Importance")
             tag_distribution,x,y = ml.forest_ml(data)
-            if st.button("Save Tag Importance"):
-                tag_distribution.to_csv(os.path.join(curr_dir,"Generated_Data", tag_importance_path,index=False))
-                st.write("Data saved to ",tag_importance_path)      
         else:
             tag_distribution = pd.read_csv(os.path.join(curr_dir,"Generated_Data", tag_importance_path))
         tag_distribution = tag_distribution[["Tag","Importance"]]

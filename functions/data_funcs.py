@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import time
-import datetime
+from datetime import datetime
 import streamlit as st
 
 try:
@@ -101,7 +101,7 @@ def get_game_details(app_id):
     return {
         "Genres": [genre["description"] for genre in game_details.get("genres", [])],
         "Release Date": game_details.get("release_date", {}).get("date", "Unknown"),
-        "Days Since Release": (datetime.datetime.now() - datetime.datetime.strptime(game_details.get("release_date", {}).get("date", "Unknown"), "%b %d, %Y")).days
+        "Days Since Release": (datetime.now() - datetime.strptime(game_details.get("release_date", {}).get("date", "Unknown"), "%b %d, %Y")).days
     }
 
 def scrape_steam_charts(pages):
@@ -170,3 +170,19 @@ def filter_data_by_tags(df, selected_tags):
         filtered_df = df  # If no genres selected, return the whole DataFrame
     
     return filtered_df
+
+
+def filter_dfs(df, genres=None, tags=None, query=""):
+    if genres:
+        df = filter_data_by_genres(df, genres)
+    if tags:
+        df = filter_data_by_tags(df, tags)
+    if query:
+        df = search_game(df, query)
+    return df
+def clean_str(fileName):
+    try:
+        fileName = datetime.strptime(fileName, "%m-%d-%Y_%H-%M-%S").strftime("%B %d, %Y at %I:%M:%S %p")
+        return fileName
+    except:
+        return fileName
