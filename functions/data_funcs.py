@@ -4,6 +4,8 @@ import pandas as pd
 import time
 from datetime import datetime
 import streamlit as st
+import os
+import re
 
 try:
     from creds import STEAM_KEY
@@ -145,7 +147,10 @@ def get_game_data(pages:2):
     print("Combining Data...")
     final_data = pd.concat([game_data, details_df,tags_df], axis=1)
 
-    return final_data,details_failed,get_game_failed,tags_failed
+    date_collected = datetime.now().strftime("%m-%d-%Y")
+    final_data["Date Collected"] = date_collected
+
+    return final_data,details_failed,get_game_failed,tags_failed, date_collected
 
 def filter_data_by_genres(df, selected_genres):
     if selected_genres:
@@ -186,3 +191,36 @@ def clean_str(fileName):
         return fileName
     except:
         return fileName
+
+@st.cache_data
+def load_all_steam_data():
+    dataframes = {}
+    data_dir = os.path.join(os.getcwd(), "Steam Data")
+    for file in os.listdir(data_dir):
+        if file.endswith(".csv"):
+            df = pd.read_csv(
+                os.path.join(data_dir, file),
+                converters={'Genres': pd.eval, 'Tags': pd.eval}
+            )
+            dataframes[file] = df
+    return dataframes
+    
+def add_date_col(folder_path = "Steam Data"):
+  # Regex pattern to match date from filename: steam_top_games_06-24-2025_13-46-33.csv
+    date_pattern = re.compile(r"steam_top_games_(\d{2}-\d{2}-\d{4})_\d{2}-\d{2}-\d{2}\.csv")
+
+    for filename in os.listdir(folder_path):
+        if filename.endswith(".csv"):
+            match = date_pattern.search(filename)
+            if match:
+                date_collected = match.group(1)  # Extracted date as MM-DD-YYYY
+                file_path = os.path.join(folder_path, filename)
+                df = pd.read_csv(file_path)
+
+                # Only add the column if it doesn't already exist
+                if "Date Collected" not in df.columns:
+                    df["Date Collected"] = date_collected
+                    df.to_csv(file_path, index=False)
+                    print(f"Added 'Date Collected' to: {filename}")
+                else:
+                    print(f"'Date Collected' already exists in: {filename}")

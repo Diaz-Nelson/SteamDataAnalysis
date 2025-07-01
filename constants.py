@@ -39,3 +39,4 @@ Tags = sorted(['FPS', 'Shooter', 'Multiplayer', 'Competitive', 'Action', 'Team-B
 Genres = sorted(['Action', 'Free To Play', 'Strategy', 'Adventure', 'RPG', 'Massively Multiplayer', 'Indie', 'Casual', 'Simulation', 
           'Early Access', 'Sports', 'Racing', 'Animation & Modeling', 'Design & Illustration', 'Education', 'Photo Editing', 
           'Utilities', 'Game Development', 'Audio Production', 'Video Production', 'Software Training'])
+

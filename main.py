@@ -2,22 +2,23 @@ from functions import data_funcs
 from datetime import datetime
 from functions import ml_funcs
 
-start = datetime.now()
 
-game_data,details_failed,game_failed,tags_failed = data_funcs.get_game_data(8)
+
+start = datetime.now()
+game_data,details_failed,game_failed,tags_failed,dateCollected = data_funcs.get_game_data(8)
 print("Time taken to get data: ",datetime.now()-start)
 print(game_data.head(10))
 
 print("Game Failed: ",game_failed)
 print("Details Failed: ",details_failed)
 print("Tags Failed: ",tags_failed)
-
+print("Date Collected:",dateCollected)
 ans = input("Would you like to save this data to a CSV file? (y/n) ")
 
 if ans.lower() == "y":
     ans = input("Use set format?(y/n) ")
     if ans.lower() == "y":
-        today = str(datetime.now().date())
+
         file_name ="steam_top_games_{}".format((datetime.now()).strftime("%m-%d-%Y_%H-%M-%S"))
     else:
         file_name = input("Enter the name of the file you would like to save the data to: ")

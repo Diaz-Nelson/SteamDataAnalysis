@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import os 
 from functions import data_funcs as funcs
 from functions import ml_funcs as ml
+from functions import visualization_funcs as vf
 from constants import Tags,Genres
 from pathlib import Path
 from datetime import datetime
@@ -114,7 +115,58 @@ def tag_evaluation():
     except:
         st.write("Error filtering data, data may not contain tags")
     
+def compare_game_attributes_over_time():
+    st.header("Game Stats Over Time")
+
+
+    if "game_list" not in st.session_state:
+        st.session_state.game_list = []
     
+
+    # Text Input for Games
+    search_query = st.text_input('Search for a game:', '')
+
+    if st.button("Add Game"):
+        if search_query and search_query not in st.session_state.game_list:
+            st.session_state.game_list.append(search_query)
+    
+
+    # Displays the games added to the game list, with the option to remove them 
+    st.subheader("Your Game List:")
+    for game in st.session_state.game_list:
+        col1,col2 = st.columns([4,1])
+        with col1:
+            st.write(game)
+        with col2:
+            if st.button(f"❌", key=f"remove_{game}"):
+                st.session_state.game_list.remove(game)
+                st.rerun()
+
+    if st.session_state.game_list:
+            
+        # Passes the game list to receive the games data over all of the data frames
+        data = vf.get_game_data_over_time(set(st.session_state.game_list))
+
+        fig, ax = plt.subplots(figsize = (10,6))
+        for game, group in data.groupby("Game"):
+            ax.plot(group["Date Collected"],group["Peak"],label = game)
+        ax.set_title("Peak Player Count OVT")
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Peak Player Count (Millions)")
+        
+        maximum_peak_count = int(data["Peak"].max())
+        intervals = (maximum_peak_count//10)
+        # Set ticks every 250,000
+        yticks = range(0, maximum_peak_count + intervals, intervals)
+        ax.set_yticks(yticks)
+        # Add grid lines
+        ax.grid(axis='y', linestyle='--', linewidth=0.7, color='lightgray', alpha=0.5)
+        ax.legend(title = 'Games')
+        
+        st.pyplot(fig)
+    else:
+        st.write("Add Games to the List to see their trends")
+
 
 def help():
     st.header("Description")
