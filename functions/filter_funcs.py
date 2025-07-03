@@ -1,5 +1,4 @@
 from datetime import datetime
-from rapidfuzz import process
 # 
 def filter_data_by_genres(df, selected_genres):
     if selected_genres:
