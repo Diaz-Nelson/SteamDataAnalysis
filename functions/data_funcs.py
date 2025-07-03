@@ -130,7 +130,7 @@ def scrape_steam_charts(pages):
             game_data.append({"Rank": rank, "Game": game, "Current": current_players, "Peak": peak_players, "App ID": app_id, "Player Hours": hours})
     return pd.DataFrame(game_data)
 
-
+# Main data pipeline function, calls all webstracping and API calling functions, combining all data into one dataframe, keeping track of how many failures appear
 def get_game_data(pages:2):
     global details_failed
     global get_game_failed
@@ -152,59 +152,7 @@ def get_game_data(pages:2):
 
     return final_data,details_failed,get_game_failed,tags_failed, date_collected
 
-def filter_data_by_genres(df, selected_genres):
-    if selected_genres:
-        # Filter rows where all selected genres are present in the Genres list
-        filtered_df = df[df['Genres'].apply(lambda genres: all(genre in genres for genre in selected_genres))]
-    else:
-        filtered_df = df  # If no genres selected, return the whole DataFrame
-    
-    return filtered_df
-def search_game(df, query):
-    if query:
-        # Filter the DataFrame where the 'Game' column contains the search query (case insensitive)
-        filtered_df = df[df['Game'].str.contains(query, case=False, na=False)]
-    else:
-        filtered_df = df  # If no query is provided, return the whole DataFrame
-    return filtered_df
-def filter_data_by_tags(df, selected_tags):
-    if selected_tags:
-        # Filter rows where all selected genres are present in the Genres list
-        filtered_df = df[df['Tags'].apply(lambda tags: all(tag in tags for tag in selected_tags))]
-    else:
-        filtered_df = df  # If no genres selected, return the whole DataFrame
-    
-    return filtered_df
 
-
-def filter_dfs(df, genres=None, tags=None, query=""):
-    if genres:
-        df = filter_data_by_genres(df, genres)
-    if tags:
-        df = filter_data_by_tags(df, tags)
-    if query:
-        df = search_game(df, query)
-    return df
-def clean_str(fileName):
-    try:
-        fileName = datetime.strptime(fileName, "%m-%d-%Y_%H-%M-%S").strftime("%B %d, %Y at %I:%M:%S %p")
-        return fileName
-    except:
-        return fileName
-
-@st.cache_data
-def load_all_steam_data():
-    dataframes = {}
-    data_dir = os.path.join(os.getcwd(), "Steam Data")
-    for file in os.listdir(data_dir):
-        if file.endswith(".csv"):
-            df = pd.read_csv(
-                os.path.join(data_dir, file),
-                converters={'Genres': pd.eval, 'Tags': pd.eval}
-            )
-            dataframes[file] = df
-    return dataframes
-    
 def add_date_col(folder_path = "Steam Data"):
   # Regex pattern to match date from filename: steam_top_games_06-24-2025_13-46-33.csv
     date_pattern = re.compile(r"steam_top_games_(\d{2}-\d{2}-\d{4})_\d{2}-\d{2}-\d{2}\.csv")

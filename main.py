@@ -3,9 +3,13 @@ from datetime import datetime
 from functions import ml_funcs
 
 
-
+# Gets the time as soon as the program is ran to be used later to calculate the time taken to retrieve all the data from steam charts, Steam API, and cleaning it.
 start = datetime.now()
+
+# Retrives the data for today from all sources and saves the game data along with various details on the pipeline
 game_data,details_failed,game_failed,tags_failed,dateCollected = data_funcs.get_game_data(8)
+
+# Calculates the time taken to retreive the data, then shows a snippet of the Dataframe. It then provides details over how many 
 print("Time taken to get data: ",datetime.now()-start)
 print(game_data.head(10))
 

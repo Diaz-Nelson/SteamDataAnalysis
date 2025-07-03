@@ -1,16 +1,20 @@
 import os
 import pandas as pd
-
+from functions import streamlit_cached_data as stc
 curr_dir = os.getcwd()
 dataframes = os.listdir("Steam Data")
 
+# Returns a time series dataset with all the given games in a set sroted by Date Collected
 def get_game_data_over_time(game_names:set):
-    curr_dir = os.getcwd()
-    dataframes = os.listdir("Steam Data")
+
+    # Initializes an empty pandas dataframe to concact all relevant rows to it
     game_data = pd.DataFrame()
 
-    for df_file in dataframes:
-        df = pd.read_csv(os.path.join(curr_dir, "Steam Data", df_file),converters={'Genres': pd.eval, 'Tags': pd.eval})
+    # Receives all the dataframes from the streamlit cache
+    dataframes = stc.load_all_steam_data().values()
+
+    # Itterates thorugh all dataframes, 
+    for df in dataframes:
         game_row = df.loc[df["Game"].isin(game_names)]
         game_data = pd.concat([game_data,game_row], ignore_index=True)
     game_data["Date Collected"] = pd.to_datetime(game_data["Date Collected"])

@@ -1,14 +1,23 @@
+# Standard Libraries
+import math
+from pathlib import Path
+from datetime import datetime
+import os 
+# Third-Party Data Libraries
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import os 
-from functions import data_funcs as funcs
-from functions import ml_funcs as ml
-from functions import visualization_funcs as vf
-from constants import Tags,Genres
-from pathlib import Path
-from datetime import datetime
 
+# Local Modules
+from constants import Genres, Tags
+from functions import (
+    filter_funcs as ff,
+    ml_funcs as ml,
+    visualization_funcs as vf,
+    streamlit_cached_data as scd
+)
+
+# Main Front page of the dashboard, can compare 2 dataframes to each other as well as filter
 def overview():
     st.header("Steam Data Comparison Overview")
 
@@ -18,21 +27,21 @@ def overview():
     selected_genres = st.multiselect('Select genres to filter by:', Genres)
     selected_tags = st.multiselect('Select tags to filter by:', Tags)
     # Text Input for Games
-    search_query = st.text_input('Search for a game:', '')
+    search_query = st.selectbox("Enter Game Name",[""] + scd.get_all_game_names())
 
     st.divider()
 
     # Display DataFrame A
     select_df_a = st.selectbox("A: Select a DataFrame to view", dataframes)
     filename_A = Path(select_df_a).stem  # removes extension
-    clean_name_A = funcs.clean_str(filename_A.replace("steam_top_games_", ""))
+    clean_name_A = ff.clean_str(filename_A.replace("steam_top_games_", ""))
 
     st.subheader(f"{clean_name_A} Data Overview")
 
     df_a_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_a),converters={'Genres': pd.eval, 'Tags': pd.eval})
     filtered_data_df_a = df_a_raw_data
     try:
-        filtered_data_df_a = funcs.filter_dfs(filtered_data_df_a,selected_genres,selected_tags,search_query)
+        filtered_data_df_a = ff.filter_dfs(filtered_data_df_a,selected_genres,selected_tags,search_query)
     except:
         st.write("Error filtering data")
 
@@ -42,13 +51,13 @@ def overview():
     # Display DataFrame B
     select_df_b = st.selectbox("B: Select a DataFrame to view", dataframes)
     filename_B = Path(select_df_b).stem
-    clean_name_B = funcs.clean_str(filename_B.replace("steam_top_games_",""))
+    clean_name_B = ff.clean_str(filename_B.replace("steam_top_games_",""))
     st.subheader(f"{clean_name_B} Data Overview")
     select_df_b_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_b),converters={'Genres': pd.eval, 'Tags': pd.eval})
 
     filtered_data_df_b = select_df_b_raw_data
     try: 
-        filtered_data_df_b = funcs.filter_dfs(filtered_data_df_b,selected_genres,selected_tags,search_query)
+        filtered_data_df_b = ff.filter_dfs(filtered_data_df_b,selected_genres,selected_tags,search_query)
     except:
         st.write("Error filtering data")
 
@@ -68,7 +77,7 @@ def overview():
 
     # Display plot in the Streamlit app
     st.pyplot(fig,use_container_width=False)
-
+# 
 def tag_evaluation():
     dataframes = os.listdir("Steam Data")
     generated_data = os.listdir("Generated_Data")
@@ -77,18 +86,18 @@ def tag_evaluation():
     # Display DataFrames
     select_df = st.selectbox("Select a DataFrame to view", dataframes)
     
-    date = funcs.clean_str((Path(select_df).stem).replace("steam_top_games_",""))
+    date = ff.clean_str((Path(select_df).stem).replace("steam_top_games_",""))
     # Multiselect widget for genres
     selected_genres = st.multiselect('Select genres to filter by:', Genres)
     selected_tags = st.multiselect('Select tags to filter by:', Tags)
     # Text Input for Games
-    search_query = st.text_input('Search for a game:', '')
+    search_query = st.selectbox("Enter Game Name",[""] + scd.get_all_game_names())
     st.divider()
 
     st.subheader("Steam Data for " + date)
     data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df),converters={'Genres': pd.eval, 'Tags': pd.eval})
     try:
-        data = funcs.filter_dfs(data,selected_genres,selected_tags,search_query)
+        data = ff.filter_dfs(data,selected_genres,selected_tags,search_query)
         st.write(data)
     except:
         st.write("Failed to filter Data")
@@ -124,7 +133,7 @@ def compare_game_attributes_over_time():
     
 
     # Text Input for Games
-    search_query = st.text_input('Search for a game:', '')
+    search_query = st.selectbox("Enter Game Name",[""] + scd.get_all_game_names())
 
     if st.button("Add Game"):
         if search_query and search_query not in st.session_state.game_list:
@@ -153,9 +162,9 @@ def compare_game_attributes_over_time():
         ax.set_title("Peak Player Count OVT")
         ax.set_xlabel("Date")
         ax.set_ylabel("Peak Player Count (Millions)")
-        
+
         maximum_peak_count = int(data["Peak"].max())
-        intervals = (maximum_peak_count//10)
+        intervals = math.ceil((maximum_peak_count//10)/50000)*50000
         # Set ticks every 250,000
         yticks = range(0, maximum_peak_count + intervals, intervals)
         ax.set_yticks(yticks)
@@ -166,13 +175,14 @@ def compare_game_attributes_over_time():
         st.pyplot(fig)
     else:
         st.write("Add Games to the List to see their trends")
-
-
+# The help page that explains what each column displays, and how to navigate the dashboard
 def help():
     st.header("Description")
     st.write("This is a dashboard that allows you to compare Steam game data from different months")
     st.write("The Overview page allows you to compare the data from two different months")
     st.write("The Tag Evaluation page allows you to see the importance of tags in the data")
+    st.write("The Game Trend page allows you to see how the peak player counts fluctuates of multiple games")
+
 
     st.header("Columns")
     st.write("Game: The name of the game")
