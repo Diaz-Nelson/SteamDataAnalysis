@@ -25,11 +25,10 @@ cookies = {
     }
 review_score = {"Overwhelmingly Positive":9,"Very Positive":8,"Positive":7,"Mostly Positive":6,"Mixed":5,"Mostly Negative":4,"Negative":3,"Very Negative":2,"Overwhelmingly Negative":1}
 
-# Gets the tags and review data for a given Steame Game
+# Gets the tags and review data for a given Steam Game
 def get_steam_reviews_tags(app_id):
     url = f"https://store.steampowered.com/app/{app_id}/"
     
-    # Bypass age check by setting the 'wants_mature_content' cookie
     global cookies
     global tags_failed
     global steam_rejections
@@ -82,28 +81,48 @@ def get_steam_reviews_tags(app_id):
 def get_game_details(app_id):
     global details_failed
     global get_game_failed
-    """Fetches genres, release date, and Metacritic rating for a given game from the Steam API."""
+
     url = f"http://store.steampowered.com/api/appdetails?appids={app_id}&key={STEAM_KEY}"
     response = requests.get(url)
 
     if response.status_code != 200:
         print(f"Failed to fetch data for {app_id}")
-        get_game_failed+=1
-        return {"Genres": ['None'], "Release Date": None}
-    
-    data = response.json()
-    
-    if not data[str(app_id)]["success"]:
-        print(f"Failed to retrieve details for {app_id}")
-        details_failed+=1
-        return {"Genres": ['None'], "Release Date": None,'Days Since Release':None}
+        get_game_failed += 1
+        return {
+            "Genres": ['None'],
+            "Release Date": None,
+            "Days Since Release": None
+        }
 
-    game_details = data[str(app_id)]["data"]
+    data = response.json()
+
+    if not data.get(str(app_id), {}).get("success", False):
+        print(f"Failed to retrieve details for {app_id}")
+        details_failed += 1
+        return {
+            "Genres": ['None'],
+            "Release Date": None,
+            "Days Since Release": None
+        }
+
+    game_data = data[str(app_id)]["data"]
+    genres = [genre["description"] for genre in game_data.get("genres", [])]
+
+    release_str = game_data.get("release_date", {}).get("date", "").strip()
+    days_since_release = None
+
+    try:
+        if release_str and release_str.lower() != "coming soon":
+            release_date = datetime.strptime(release_str, "%b %d, %Y")
+            days_since_release = (datetime.now() - release_date).days
+    except ValueError:
+        # Optional: log invalid format for debug
+        print(f"Invalid date format for {app_id}: '{release_str}'")
 
     return {
-        "Genres": [genre["description"] for genre in game_details.get("genres", [])],
-        "Release Date": game_details.get("release_date", {}).get("date", "Unknown"),
-        "Days Since Release": (datetime.now() - datetime.strptime(game_details.get("release_date", {}).get("date", "Unknown"), "%b %d, %Y")).days
+        "Genres": genres or ['None'],
+        "Release Date": release_str if release_str else None,
+        "Days Since Release": days_since_release
     }
 
 def scrape_steam_charts(pages):

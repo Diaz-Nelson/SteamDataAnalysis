@@ -1,0 +1,176 @@
+Rank,Game,Current,Peak,App ID,Player Hours,Genres,Release Date,Days Since Release,Date Collected
+1.0,Counter-Strike 2,775672,1783434,730,728720623,"['Action', 'Free To Play']","Aug 21, 2012",4579.0,03-05-2025
+2.0,Monster Hunter Wilds,408786,1179869,2246340,26932701,"['Action', 'Adventure', 'RPG']","Feb 27, 2025",6.0,03-05-2025
+3.0,Dota 2,284634,708043,570,307884062,"['Action', 'Strategy', 'Free To Play']","Jul 9, 2013",4257.0,03-05-2025
+4.0,Marvel Rivals,195047,437272,2767030,155802199,"['Action', 'Free To Play']","Dec 5, 2024",90.0,03-05-2025
+5.0,PUBG: BATTLEGROUNDS,115526,818843,578080,231918291,"['Action', 'Adventure', 'Massively Multiplayer', 'Free To Play']","Dec 21, 2017",2631.0,03-05-2025
+6.0,Tom Clancy's Rainbow Six Siege,102780,110697,359550,44656550,['Action'],"Dec 1, 2015",3382.0,03-05-2025
+7.0,Rust,73079,232431,252490,85784158,"['Action', 'Adventure', 'Indie', 'Massively Multiplayer', 'RPG']","Feb 8, 2018",2582.0,03-05-2025
+8.0,Grand Theft Auto V Legacy,62934,199199,271590,82114908,"['Action', 'Adventure']","Apr 13, 2015",3614.0,03-05-2025
+9.0,Apex Legends,60804,225810,1172470,69361080,"['Action', 'Adventure', 'Free To Play']","Nov 4, 2020",1582.0,03-05-2025
+10.0,Kingdom Come: Deliverance II,54954,255607,1771300,76369978,"['Action', 'Adventure', 'RPG']","Feb 4, 2025",29.0,03-05-2025
+11.0,R.E.P.O.,52705,71244,3241660,4206459,"['Action', 'Early Access']","Feb 26, 2025",7.0,03-05-2025
+12.0,Call of Duty®,52380,101760,1938090,37815599,['Action'],"Oct 27, 2022",860.0,03-05-2025
+13.0,EA SPORTS FC 25,50496,82309,2669320,34074610,"['Simulation', 'Sports']","Sep 26, 2024",160.0,03-05-2025
+14.0,Baldur's Gate 3,49475,108782,1086940,40983496,"['Adventure', 'RPG', 'Strategy']","Aug 3, 2023",580.0,03-05-2025
+15.0,Football Manager 2024,46330,79206,2252570,35288968,"['Simulation', 'Sports', 'Strategy']","Nov 6, 2023",485.0,03-05-2025
+16.0,Crosshair X,44820,70226,1366800,33243640,"['Action', 'Adventure', 'Indie', 'Animation & Modeling', 'Design & Illustration', 'Education', 'Photo Editing', 'Utilities', 'Game Development']","Aug 17, 2020",1661.0,03-05-2025
+17.0,Crab Game,44297,52254,1782210,26060608,"['Action', 'Casual', 'Free To Play', 'Indie', 'Racing']","Oct 29, 2021",1223.0,03-05-2025
+18.0,War Thunder,42453,99664,236390,42830711,"['Action', 'Massively Multiplayer', 'Simulation', 'Free To Play']","Aug 15, 2013",4220.0,03-05-2025
+19.0,Path of Exile 2,42169,147742,2694490,56133411,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG', 'Early Access']","Dec 6, 2024",89.0,03-05-2025
+20.0,Wallpaper Engine,41867,139559,431960,59819757,"['Casual', 'Indie', 'Animation & Modeling', 'Design & Illustration', 'Photo Editing', 'Utilities']","Nov 16, 2018",2301.0,03-05-2025
+21.0,DayZ,41653,75508,221100,29094572,"['Action', 'Adventure', 'Massively Multiplayer']","Dec 13, 2018",2274.0,03-05-2025
+22.0,Warframe,41075,76887,230410,38722843,"['Action', 'RPG', 'Free To Play']","Mar 25, 2013",4363.0,03-05-2025
+23.0,Stardew Valley,40623,100401,413150,41637587,"['Indie', 'RPG', 'Simulation']","Feb 26, 2016",3295.0,03-05-2025
+24.0,Banana,39384,158400,2923300,78617562,"['Adventure', 'Casual', 'Simulation', 'Strategy', 'Free To Play']","Apr 23, 2024",316.0,03-05-2025
+25.0,Delta Force,38083,130186,2507950,46251501,"['Action', 'Adventure', 'Massively Multiplayer', 'Free To Play']","Dec 4, 2024",91.0,03-05-2025
+26.0,The Sims™ 4,35086,59219,1222670,25078499,"['Adventure', 'Casual', 'Simulation', 'Free To Play']","Jun 18, 2020",1721.0,03-05-2025
+27.0,Team Fortress 2,33326,58638,440,30763582,"['Action', 'Free To Play']","Oct 10, 2007",6356.0,03-05-2025
+28.0,HELLDIVERS™ 2,32471,96421,553850,37479954,['Action'],"Feb 8, 2024",391.0,03-05-2025
+29.0,Destiny 2,31581,77252,1085660,28984703,"['Action', 'Adventure', 'Free To Play']","Oct 1, 2019",1982.0,03-05-2025
+30.0,Hearts of Iron IV,31418,63343,394360,26374743,"['Simulation', 'Strategy']","Jun 6, 2016",3194.0,03-05-2025
+31.0,ELDEN RING,30956,69179,1245620,29833821,"['Action', 'RPG']","Feb 24, 2022",1105.0,03-05-2025
+32.0,VRChat,28595,59325,438100,27087617,"['Adventure', 'Casual', 'Massively Multiplayer', 'Simulation', 'Sports', 'Free To Play', 'Early Access']","Feb 1, 2017",2954.0,03-05-2025
+33.0,Spacewar,26624,73443,480,25424038,['None'],,,03-05-2025
+34.0,Path of Exile,26506,91948,238960,15696428,"['Action', 'Adventure', 'Indie', 'Massively Multiplayer', 'RPG', 'Free To Play']","Oct 23, 2013",4151.0,03-05-2025
+35.0,Dead by Daylight,26358,66219,381210,25419591,['Action'],"Jun 14, 2016",3186.0,03-05-2025
+36.0,Overwatch® 2,25785,58897,2357570,17890611,"['Action', 'Free To Play']","Aug 10, 2023",573.0,03-05-2025
+37.0,The Elder Scrolls V: Skyrim Special Edition,25675,46027,489830,19354444,['RPG'],"Oct 27, 2016",3051.0,03-05-2025
+38.0,Sid Meier's Civilization VI,25602,69163,289070,28877140,['Strategy'],"Oct 20, 2016",3058.0,03-05-2025
+39.0,Rocket League,25145,33804,252950,13299697,"['Action', 'Indie', 'Racing', 'Sports']","Jul 6, 2015",3530.0,03-05-2025
+40.0,Lost Ark,24379,31282,1599340,12287353,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG', 'Free To Play']","Feb 11, 2022",1118.0,03-05-2025
+41.0,Left 4 Dead 2,24266,51703,550,20071223,['Action'],"Nov 16, 2009",5588.0,03-05-2025
+42.0,Sid Meier's Civilization VII,23504,84558,1295660,19483569,"['Simulation', 'Strategy']","Feb 10, 2025",23.0,03-05-2025
+43.0,Euro Truck Simulator 2,22640,65513,227300,20464468,"['Indie', 'Simulation']","Oct 12, 2012",4527.0,03-05-2025
+44.0,Project Zomboid,22490,48715,108600,20420562,"['Indie', 'RPG', 'Simulation', 'Early Access']","Nov 8, 2013",4135.0,03-05-2025
+45.0,tModLoader,22487,50090,1281930,20586653,"['Action', 'Adventure', 'Indie', 'RPG', 'Free To Play']","May 16, 2020",1754.0,03-05-2025
+46.0,Red Dead Redemption 2,21837,96109,1174180,32046471,"['Action', 'Adventure']","Dec 5, 2019",1917.0,03-05-2025
+47.0,Balatro,21480,31639,2379780,15558050,"['Casual', 'Indie', 'Strategy']","Feb 20, 2024",379.0,03-05-2025
+48.0,Terraria,21406,40564,105600,19143590,"['Action', 'Adventure', 'Indie', 'RPG']","May 16, 2011",5042.0,03-05-2025
+49.0,Palworld,20858,97226,1623730,33313341,"['Action', 'Adventure', 'Indie', 'RPG', 'Early Access']","Jan 18, 2024",412.0,03-05-2025
+50.0,Valheim,20310,48867,892970,16922004,"['Action', 'Adventure', 'Indie', 'RPG', 'Early Access']","Feb 2, 2021",1492.0,03-05-2025
+51.0,7 Days to Die,20252,41145,251570,17884582,"['Action', 'Adventure', 'Indie', 'RPG', 'Simulation', 'Strategy']","Jul 25, 2024",223.0,03-05-2025
+52.0,The Binding of Isaac: Rebirth,19910,37992,250900,18300119,['Action'],"Nov 4, 2014",3774.0,03-05-2025
+53.0,Cyberpunk 2077,19435,54187,1091500,21525047,['RPG'],"Dec 9, 2020",1547.0,03-05-2025
+54.0,RimWorld,19012,33202,294100,16662229,"['Indie', 'Simulation', 'Strategy']","Oct 17, 2018",2331.0,03-05-2025
+55.0,ARK: Survival Evolved,18762,43024,346110,18333584,"['Action', 'Adventure', 'Indie', 'Massively Multiplayer', 'RPG']","Aug 27, 2017",2747.0,03-05-2025
+56.0,Garry's Mod,18260,36126,4000,14491902,"['Casual', 'Indie', 'Simulation']","Nov 29, 2006",6671.0,03-05-2025
+57.0,Phasmophobia,18041,37818,739630,13981812,"['Action', 'Indie', 'Early Access']","Sep 18, 2020",1629.0,03-05-2025
+58.0,ARK: Survival Ascended,17971,37097,2399830,14916954,"['Action', 'Adventure', 'Indie', 'Massively Multiplayer', 'RPG', 'Early Access']","Oct 25, 2023",497.0,03-05-2025
+59.0,THRONE AND LIBERTY,17903,39770,2429640,13673359,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG', 'Free To Play']","Oct 1, 2024",155.0,03-05-2025
+60.0,Total War: WARHAMMER III,17704,34549,1142710,14600181,"['Action', 'Strategy']","Feb 16, 2022",1113.0,03-05-2025
+61.0,FINAL FANTASY XIV Online,16565,24540,39210,11480127,"['Massively Multiplayer', 'RPG']","Feb 18, 2014",4033.0,03-05-2025
+62.0,Black Desert,16098,21065,582660,11828397,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG', 'Simulation', 'Strategy']","May 24, 2017",2842.0,03-05-2025
+63.0,Factorio,15961,30973,427520,12914974,"['Casual', 'Indie', 'Simulation', 'Strategy']","Aug 14, 2020",1664.0,03-05-2025
+64.0,Farming Simulator 25,15467,42826,2300320,14041897,['Simulation'],"Nov 12, 2024",113.0,03-05-2025
+65.0,BeamNG.drive,15397,28771,284160,11659124,"['Racing', 'Simulation', 'Early Access']","May 29, 2015",3568.0,03-05-2025
+66.0,Once Human,15382,35316,2139460,15781479,"['Action', 'Adventure', 'RPG', 'Simulation', 'Strategy', 'Free To Play']","Jul 9, 2024",239.0,03-05-2025
+67.0,Age of Empires II: Definitive Edition,15266,27909,813780,12187420,['Strategy'],"Nov 14, 2019",1938.0,03-05-2025
+68.0,MIR4,15265,18425,1623660,11770935,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG', 'Free To Play']","Aug 25, 2021",1288.0,03-05-2025
+69.0,Crusader Kings III,15244,26501,1158310,11780506,"['RPG', 'Simulation', 'Strategy']","Sep 1, 2020",1646.0,03-05-2025
+70.0,Sid Meier's Civilization V,14810,26037,8930,11613613,['Strategy'],"Sep 21, 2010",5279.0,03-05-2025
+71.0,Geometry Dash,14605,23841,322170,10106662,"['Action', 'Indie']","Dec 22, 2014",3726.0,03-05-2025
+72.0,Counter-Strike: Source,14583,16094,240,7496919,['Action'],"Nov 1, 2004",7429.0,03-05-2025
+73.0,Monster Hunter: World,13714,64004,582010,21498141,['Action'],"Aug 8, 2018",2401.0,03-05-2025
+74.0,NBA 2K25,13696,44031,2878980,17682396,"['Simulation', 'Sports']","Oct 28, 2024",128.0,03-05-2025
+75.0,Limbus Company,13519,59264,1973530,13922284,"['Action', 'RPG', 'Strategy']","Feb 26, 2023",738.0,03-05-2025
+76.0,Brawlhalla,13457,17854,291550,7549918,"['Action', 'Indie', 'Free To Play']","Oct 17, 2017",2696.0,03-05-2025
+77.0,Europa Universalis IV,13442,23671,236850,10713876,"['Simulation', 'Strategy']","Aug 13, 2013",4222.0,03-05-2025
+78.0,Fallout 4,13153,20984,377160,9292594,['RPG'],"Nov 9, 2015",3404.0,03-05-2025
+79.0,Soundpad,13111,22503,629520,10182099,"['Audio Production', 'Utilities']","Sep 30, 2017",2713.0,03-05-2025
+80.0,Cookie Clicker,12691,20978,1454400,11363861,"['Casual', 'Indie', 'Simulation', 'Strategy']","Sep 1, 2021",1281.0,03-05-2025
+81.0,Kingdom Come: Deliverance,12622,45471,379430,15026245,"['Action', 'Adventure', 'RPG']","Feb 13, 2018",2577.0,03-05-2025
+82.0,NARAKA: BLADEPOINT,12611,229937,1203220,59106330,"['Action', 'Adventure', 'Massively Multiplayer']","Aug 11, 2021",1302.0,03-05-2025
+83.0,Mecha BREAK Demo,12540,300270,2870990,16179901,"['Action', 'Massively Multiplayer']","Feb 20, 2025",13.0,03-05-2025
+84.0,Satisfactory,12513,25626,526870,10058769,"['Adventure', 'Indie', 'Simulation', 'Strategy']","Sep 10, 2024",176.0,03-05-2025
+85.0,Arma Reforger,11844,19875,1874880,7233974,"['Action', 'Simulation', 'Strategy']","Nov 16, 2023",475.0,03-05-2025
+86.0,Unturned,11687,20870,304930,9931917,"['Action', 'Adventure', 'Casual', 'Indie', 'Free To Play']","Jul 7, 2017",2798.0,03-05-2025
+87.0,Mount & Blade II: Bannerlord,11571,30053,261550,12327269,"['Action', 'Indie', 'RPG', 'Simulation', 'Strategy']","Oct 25, 2022",862.0,03-05-2025
+88.0,Legends of Idleon MMO,11549,16867,1476970,9317129,"['Casual', 'Indie', 'Massively Multiplayer', 'RPG', 'Simulation', 'Free To Play', 'Early Access']","Apr 2, 2021",1433.0,03-05-2025
+89.0,Don't Starve Together,10972,69037,322330,20017400,"['Action', 'Adventure', 'Indie', 'RPG', 'Simulation', 'Strategy']","Apr 21, 2016",3240.0,03-05-2025
+90.0,Yu-Gi-Oh!  Master Duel,10942,76970,1449850,17605092,"['Simulation', 'Strategy', 'Free To Play']","Jan 18, 2022",1142.0,03-05-2025
+91.0,No Man's Sky,10555,39657,275850,14497766,"['Action', 'Adventure']","Aug 12, 2016",3127.0,03-05-2025
+92.0,Enshrouded,10148,34712,1203620,11281355,"['Action', 'Adventure', 'RPG', 'Early Access']","Jan 24, 2024",406.0,03-05-2025
+93.0,PAYDAY 2,10087,27345,218620,7686059,"['Action', 'RPG']","Aug 13, 2013",4222.0,03-05-2025
+94.0,SCUM,10026,22471,513710,9963997,"['Action', 'Adventure', 'Indie', 'Massively Multiplayer', 'Early Access']","Aug 29, 2018",2380.0,03-05-2025
+95.0,The Witcher 3: Wild Hunt,9864,32650,292030,11215007,['RPG'],"May 18, 2015",3579.0,03-05-2025
+96.0,The Elder Scrolls Online,9820,18213,306130,7795697,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG']","May 22, 2017",2844.0,03-05-2025
+97.0,THE FINALS,9661,19499,2073850,8266288,"['Action', 'Free To Play']","Dec 7, 2023",454.0,03-05-2025
+98.0,Stellaris,9511,20818,281990,9538498,"['Simulation', 'Strategy']","May 9, 2016",3222.0,03-05-2025
+99.0,Lethal Company,9493,29108,1966720,10476540,"['Action', 'Adventure', 'Indie', 'Early Access']","Oct 23, 2023",499.0,03-05-2025
+100.0,Sea of Thieves,9487,31500,1172620,6660533,"['Action', 'Adventure']","Jun 3, 2020",1736.0,03-05-2025
+101.0,Slay the Spire,9409,19137,646570,9038366,"['Indie', 'Strategy']","Jan 23, 2019",2233.0,03-05-2025
+102.0,The Isle,9400,13901,376210,5769824,"['Action', 'Adventure', 'Indie', 'Massively Multiplayer', 'Simulation', 'Early Access']","Dec 1, 2015",3382.0,03-05-2025
+103.0,Assetto Corsa,9332,18623,244210,6902979,"['Indie', 'Racing', 'Simulation', 'Sports']","Dec 19, 2014",3729.0,03-05-2025
+104.0,Bloons TD 6,9130,15673,960090,6845940,['Strategy'],"Dec 17, 2018",2270.0,03-05-2025
+105.0,eFootball™,8847,16002,1665460,6582425,"['Simulation', 'Sports', 'Free To Play']","Sep 29, 2021",1253.0,03-05-2025
+106.0,OBS Studio,8752,22699,1905180,9582936,"['Utilities', 'Video Production']","Mar 21, 2022",1080.0,03-05-2025
+107.0,Arma 3,8692,19789,107410,6775359,"['Action', 'Simulation', 'Strategy']","Sep 12, 2013",4192.0,03-05-2025
+108.0,Squad,8655,21499,393380,8959785,"['Action', 'Indie', 'Massively Multiplayer', 'Strategy']","Sep 23, 2020",1624.0,03-05-2025
+109.0,Albion Online,8623,13897,761890,6548389,"['Massively Multiplayer', 'RPG', 'Free To Play']","May 16, 2018",2485.0,03-05-2025
+110.0,Elite Dangerous,8596,13254,359320,3678372,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG', 'Simulation', 'Strategy']","Apr 2, 2015",3625.0,03-05-2025
+111.0,Counter-Strike,8517,18920,10,8239349,['Action'],"Nov 1, 2000",8890.0,03-05-2025
+112.0,Waifu,8380,8435,3188910,3843407,"['Casual', 'Indie', 'RPG', 'Simulation', 'Free To Play']","Dec 3, 2024",92.0,03-05-2025
+113.0,American Truck Simulator,8308,13481,270880,5137374,"['Indie', 'Simulation']","Feb 2, 2016",3319.0,03-05-2025
+114.0,Hogwarts Legacy,8164,29998,990080,8866294,"['Action', 'Adventure', 'RPG']","Feb 10, 2023",754.0,03-05-2025
+115.0,Schedule I: Free Sample,7998,13497,3205720,787824,"['Action', 'Indie', 'Simulation']","Dec 9, 2024",86.0,03-05-2025
+116.0,New World: Aeternum,7882,14164,1063730,6070873,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG']","Sep 28, 2021",1254.0,03-05-2025
+117.0,Blender,7674,12439,365670,6534016,"['Animation & Modeling', 'Design & Illustration', 'Video Production']","Apr 24, 2015",3603.0,03-05-2025
+118.0,Supermarket Together,7393,16539,2709570,6081506,"['Casual', 'Indie', 'Simulation', 'Free To Play']","Aug 9, 2024",208.0,03-05-2025
+119.0,Hunt: Showdown 1896,7293,24796,594650,8437155,['Action'],"Aug 27, 2019",2017.0,03-05-2025
+120.0,Anno 1800,7270,17762,916440,2686725,"['Simulation', 'Strategy']","Apr 16, 2019",2150.0,03-05-2025
+121.0,Revolution Idle,7243,8993,2763740,5219831,"['Casual', 'Indie', 'Simulation', 'Free To Play', 'Early Access']","Oct 11, 2024",145.0,03-05-2025
+122.0,SMITE 2,7189,13380,2437170,4919884,"['Action', 'Adventure', 'Casual', 'Massively Multiplayer', 'RPG', 'Strategy', 'Free To Play', 'Early Access']","Aug 27, 2024",190.0,03-05-2025
+123.0,Farming Simulator 22,7160,18495,1248130,6235342,['Simulation'],"Nov 21, 2021",1200.0,03-05-2025
+124.0,Magic: The Gathering Arena,7108,11048,2141910,4453886,"['Strategy', 'Free To Play']","May 23, 2023",652.0,03-05-2025
+125.0,Ghost Recon Breakpoint,7063,10373,2231380,1800686,"['Action', 'Adventure']","Jan 23, 2023",772.0,03-05-2025
+126.0,Summoners War,7005,12927,2426960,6066256,"['RPG', 'Strategy', 'Free To Play']","Jan 7, 2024",423.0,03-05-2025
+127.0,Battlefield 1 ™,6829,38155,1238840,10831990,"['Action', 'Massively Multiplayer']","Jun 11, 2020",1728.0,03-05-2025
+128.0,Dark and Darker,6796,16074,2016590,7503621,"['Action', 'RPG', 'Free To Play', 'Early Access']","Jun 7, 2024",271.0,03-05-2025
+129.0,ULTRAKILL,6720,22928,1229490,3076874,"['Action', 'Indie', 'Early Access']","Sep 3, 2020",1644.0,03-05-2025
+130.0,Far Cry 5,6693,12834,552520,2278888,"['Action', 'Adventure']","Mar 26, 2018",2536.0,03-05-2025
+131.0,STALCRAFT: X,6618,30915,1818450,6411911,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG']","Dec 9, 2022",817.0,03-05-2025
+132.0,Forza Horizon 5,6440,19390,1551360,7341831,"['Action', 'Adventure', 'Racing', 'Simulation', 'Sports']","Nov 8, 2021",1213.0,03-05-2025
+133.0,Hades II,6404,17712,1145350,4215873,"['Action', 'Indie', 'RPG', 'Early Access']","May 6, 2024",303.0,03-05-2025
+134.0,Lossless Scaling,6402,15464,993090,5471988,['Utilities'],"Dec 28, 2018",2259.0,03-05-2025
+135.0,Sons Of The Forest,6386,17832,1326470,6248681,"['Action', 'Adventure', 'Indie', 'Simulation']","Feb 22, 2024",377.0,03-05-2025
+136.0,Conan Exiles,6336,10197,440900,4237425,"['Action', 'Adventure', 'Massively Multiplayer', 'RPG', 'Simulation', 'Strategy']","May 8, 2018",2493.0,03-05-2025
+137.0,Age of Empires IV: Anniversary Edition,6312,18016,1466860,6547519,['Strategy'],"Oct 28, 2021",1224.0,03-05-2025
+138.0,Deep Rock Galactic,6311,20780,548430,7416841,['Action'],"May 13, 2020",1757.0,03-05-2025
+139.0,Risk of Rain 2,6016,13434,632360,5338892,"['Action', 'Indie']","Aug 11, 2020",1667.0,03-05-2025
+140.0,Fallout 76,5956,14653,1151340,5658046,['RPG'],"Apr 14, 2020",1786.0,03-05-2025
+141.0,Hell Let Loose,5948,14589,686810,4753131,"['Action', 'Indie', 'Massively Multiplayer', 'Simulation', 'Strategy']","Jul 27, 2021",1317.0,03-05-2025
+142.0,FINAL FANTASY VII REBIRTH,5906,29731,2909400,9726479,"['Action', 'Adventure', 'RPG']","Jan 23, 2025",41.0,03-05-2025
+143.0,MapleStory,5877,8759,216150,4409251,"['Action', 'Adventure', 'Casual', 'Massively Multiplayer', 'RPG', 'Free To Play']","Aug 9, 2012",4591.0,03-05-2025
+144.0,Ready or Not,5831,12595,1144200,4414753,"['Action', 'Adventure', 'Indie']","Dec 13, 2023",448.0,03-05-2025
+145.0,DARK SOULS™ III,5714,10451,374320,4635440,['Action'],"Apr 11, 2016",3250.0,03-05-2025
+146.0,"Warhammer 40,000: Space Marine 2",5699,17335,2183900,5886989,"['Action', 'Adventure', 'RPG']","Sep 9, 2024",177.0,03-05-2025
+147.0,Supermarket Simulator,5694,11543,2670630,4477730,"['Casual', 'Indie', 'Simulation', 'Early Access']","Feb 20, 2024",379.0,03-05-2025
+148.0,Cities: Skylines,5668,14969,255710,6346318,"['Simulation', 'Strategy']","Mar 10, 2015",3648.0,03-05-2025
+149.0,DSX,5621,7430,1812620,3723286,['Utilities'],"Jun 24, 2022",985.0,03-05-2025
+150.0,VTube Studio,5525,21392,1325860,7156977,"['Indie', 'Animation & Modeling', 'Video Production']","Mar 12, 2021",1454.0,03-05-2025
+151.0,Raft,5506,15011,648800,5437266,"['Adventure', 'Indie', 'Simulation']","Jun 20, 2022",989.0,03-05-2025
+152.0,Cities: Skylines II,5431,11431,949230,4845354,['Simulation'],"Oct 24, 2023",498.0,03-05-2025
+153.0,GrandChase,5335,6520,985810,2538193,"['Action', 'Casual', 'Free To Play']","Jul 27, 2021",1317.0,03-05-2025
+154.0,Street Fighter™ 6,5288,62931,1364780,11981660,"['Action', 'Adventure']","Jun 1, 2023",643.0,03-05-2025
+155.0,Diablo® IV,5170,23080,2344520,7559475,"['Action', 'RPG']","Oct 17, 2023",505.0,03-05-2025
+156.0,Black Myth: Wukong,5166,56486,2358720,16689217,"['Action', 'Adventure', 'RPG']","Aug 19, 2024",198.0,03-05-2025
+157.0,Age of Mythology: Retold,5157,9702,1934680,1779189,['Strategy'],"Sep 4, 2024",182.0,03-05-2025
+158.0,Unnamed Space Idle,5089,6309,2471100,3778215,"['Casual', 'Simulation', 'Free To Play', 'Early Access']","Jul 27, 2023",587.0,03-05-2025
+159.0,Hollow Knight,5049,10036,367520,4527629,"['Action', 'Adventure', 'Indie']","Feb 24, 2017",2931.0,03-05-2025
+160.0,Among Us,5047,12276,945360,3391682,['Casual'],"Nov 16, 2018",2301.0,03-05-2025
+161.0,TEKKEN 8,5015,8437,1778820,4176587,['Action'],"Jan 25, 2024",405.0,03-05-2025
+162.0,EA SPORTS FC™ 24,5014,11590,2195250,4822248,"['Simulation', 'Sports']","Sep 28, 2023",524.0,03-05-2025
+163.0,Aseprite,4921,5606,431730,3419288,"['Animation & Modeling', 'Design & Illustration', 'Game Development']","Feb 22, 2016",3299.0,03-05-2025
+164.0,YoloMouse,4920,9895,1283970,4975387,"['Animation & Modeling', 'Design & Illustration', 'Education', 'Software Training', 'Utilities']","May 1, 2020",1769.0,03-05-2025
+165.0,Palia,4913,8076,2707930,3446965,"['Adventure', 'Casual', 'Indie', 'RPG', 'Simulation', 'Free To Play']","Mar 25, 2024",345.0,03-05-2025
+166.0,Disney Dreamlight Valley,4890,8761,1401590,2086469,"['Action', 'Adventure', 'Casual', 'RPG', 'Simulation']","Dec 5, 2023",456.0,03-05-2025
+167.0,The First Descendant,4833,13784,2074920,5729286,"['Action', 'Adventure', 'RPG', 'Free To Play']","Jun 30, 2024",248.0,03-05-2025
+168.0,Tabletop Simulator,4822,10470,286160,3895731,"['Casual', 'Indie', 'RPG', 'Simulation', 'Strategy']","Jun 5, 2015",3561.0,03-05-2025
+169.0,Among Us 3D Demo,4769,11009,3529590,793333,[],"Feb 24, 2025",9.0,03-05-2025
+170.0,SnowRunner,4743,10466,1465360,3392766,"['Adventure', 'Simulation']","May 17, 2021",1388.0,03-05-2025
+171.0,MARVEL SNAP,4736,8497,1997040,2554698,"['Casual', 'Strategy', 'Free To Play']","Aug 22, 2023",561.0,03-05-2025
+172.0,Avowed,4624,19161,2457220,2229441,['RPG'],"Feb 18, 2025",15.0,03-05-2025
+173.0,Football Manager 2023,4518,7601,1904540,3456006,"['Simulation', 'Sports']","Nov 8, 2022",848.0,03-05-2025
+174.0,Total War: ROME II - Emperor Edition,4453,8397,214950,3329035,['Strategy'],"Sep 2, 2013",4202.0,03-05-2025
+175.0,Victoria 3,4406,8530,529340,3838972,"['Simulation', 'Strategy']","Oct 25, 2022",862.0,03-05-2025

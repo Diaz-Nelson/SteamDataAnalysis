@@ -1,16 +1,16 @@
 # Standard Libraries
 import math
 from pathlib import Path
-from datetime import datetime
 import os 
 # Third-Party Data Libraries
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import plotly.express as px
+import plotly.graph_objects as go
 # Local Modules
 from constants import Genres, Tags
-from functions import (
+from Functions import (
     filter_funcs as ff,
     ml_funcs as ml,
     visualization_funcs as vf,
@@ -77,6 +77,8 @@ def overview():
 
     # Display plot in the Streamlit app
     st.pyplot(fig,use_container_width=False)
+
+
 # 
 def tag_evaluation():
     dataframes = os.listdir("Steam Data")
@@ -153,26 +155,29 @@ def compare_game_attributes_over_time():
 
     if st.session_state.game_list:
             
-        # Passes the game list to receive the games data over all of the data frames
+        # Passes the game list to receive the games data over all of the dataframes
         data = vf.get_game_data_over_time(set(st.session_state.game_list))
-
-        fig, ax = plt.subplots(figsize = (10,6))
-        for game, group in data.groupby("Game"):
-            ax.plot(group["Date Collected"],group["Peak"],label = game)
-        ax.set_title("Peak Player Count OVT")
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Peak Player Count (Millions)")
-
         maximum_peak_count = int(data["Peak"].max())
         intervals = math.ceil((maximum_peak_count//10)/50000)*50000
-        # Set ticks every 250,000
-        yticks = range(0, maximum_peak_count + intervals, intervals)
-        ax.set_yticks(yticks)
-        # Add grid lines
-        ax.grid(axis='y', linestyle='--', linewidth=0.7, color='lightgray', alpha=0.5)
-        ax.legend(title = 'Games')
-        
-        st.pyplot(fig)
+
+        fig = px.line(
+            data,
+            x = "Date Collected",
+            y = "Peak",
+            color = "Game",
+            title= "Peak Player Count Over Time",
+            labels= {"Peak":"Peak Player Count","Date Collected":"Date"}
+        )
+        fig.add_trace(
+        go.Scatter(
+        x=data['Date Collected'],
+        y=data['Peak'],
+        mode='markers',
+        name='Saved Points',
+        marker=dict(size=8, color='red', symbol='circle')
+    )
+)
+        st.plotly_chart(fig,use_container_width=True)
     else:
         st.write("Add Games to the List to see their trends")
 # The help page that explains what each column displays, and how to navigate the dashboard
