@@ -1,4 +1,4 @@
-from Functions import data_funcs
+from functions import data_funcs
 from datetime import datetime
 
 # Retrives the data for today from all sources and saves the game data along with various details on the pipeline

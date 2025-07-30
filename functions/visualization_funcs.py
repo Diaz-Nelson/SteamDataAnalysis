@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from Functions import streamlit_cached_data as stc
+from functions import streamlit_cached_data as stc
 curr_dir = os.getcwd()
 dataframes = os.listdir("Steam Data")
 

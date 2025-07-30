@@ -10,12 +10,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 # Local Modules
 from constants import Genres, Tags
-from Functions import (
-    filter_funcs as ff,
-    ml_funcs as ml,
-    visualization_funcs as vf,
-    streamlit_cached_data as scd
-)
+from functions import filter_funcs as ff
+from functions import ml_funcs as ml
+from functions import visualization_funcs as vf
+from functions import streamlit_cached_data as scd
+
 
 # Main Front page of the dashboard, can compare 2 dataframes to each other as well as filter
 def overview():
