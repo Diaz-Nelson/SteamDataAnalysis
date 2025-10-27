@@ -1,5 +1,6 @@
 from datetime import datetime
-
+import pandas as pd
+import ast
 def filter_data_by_genres(df, selected_genres):
     if selected_genres:
         # Filter rows where all selected genres are present in the Genres list
@@ -34,9 +35,10 @@ def filter_dfs(df, genres=None, tags=None, query=""):
         df = search_game(df, query)
     return df
 
-def clean_str(fileName):
+def safe_literal_eval(x):
+    if pd.isna(x) or x.strip() == "":
+        return []  # return empty list for blank values
     try:
-        fileName = datetime.strptime(fileName, "%m-%d-%Y_%H-%M-%S").strftime("%B %d, %Y at %I:%M:%S %p")
-        return fileName
-    except:
-        return fileName
+        return ast.literal_eval(x)
+    except Exception:
+        return []  # fallback in case of malformed input

@@ -20,104 +20,107 @@ from functions import streamlit_cached_data as scd
 def overview():
     st.header("Steam Data Comparison Overview")
 
-    curr_dir = os.getcwd()
-    dataframes = os.listdir("Steam Data")
+    # Gets static data from cache to be used later
+    steam_data = scd.load_all_steam_data()
+    dates = scd.get_all_data_dates()
+    
+    game_names = scd.get_all_game_names()
     # Multiselect widget for genres
     selected_genres = st.multiselect('Select genres to filter by:', Genres)
     selected_tags = st.multiselect('Select tags to filter by:', Tags)
     # Text Input for Games
-    search_query = st.selectbox("Enter Game Name",[""] + scd.get_all_game_names())
+    search_query = st.selectbox("Enter Game Name",[""] + game_names)
 
     st.divider()
 
     # Display DataFrame A
-    select_df_a = st.selectbox("A: Select a DataFrame to view", dataframes)
-    filename_A = Path(select_df_a).stem  # removes extension
-    clean_name_A = ff.clean_str(filename_A.replace("steam_top_games_", ""))
+    selected_date = st.selectbox("A: Select a Date to view", dates, index=len(dates) - 1)
+    st.subheader(f"{selected_date} Data Overview")
 
-    st.subheader(f"{clean_name_A} Data Overview")
-
-    df_a_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_a),converters={'Genres': pd.eval, 'Tags': pd.eval})
-    filtered_data_df_a = df_a_raw_data
+    df_A = steam_data[steam_data["Date Collected"]==selected_date]
+    filtered_data_df_A = df_A
     try:
-        filtered_data_df_a = ff.filter_dfs(filtered_data_df_a,selected_genres,selected_tags,search_query)
+        filtered_data_df_A = ff.filter_dfs(filtered_data_df_A,selected_genres,selected_tags,search_query)
     except:
         st.write("Error filtering data")
 
-    st.write(filtered_data_df_a)
+    st.write(filtered_data_df_A)
 
     
-    # Display DataFrame B
-    select_df_b = st.selectbox("B: Select a DataFrame to view", dataframes)
-    filename_B = Path(select_df_b).stem
-    clean_name_B = ff.clean_str(filename_B.replace("steam_top_games_",""))
-    st.subheader(f"{clean_name_B} Data Overview")
-    select_df_b_raw_data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df_b),converters={'Genres': pd.eval, 'Tags': pd.eval})
-
-    filtered_data_df_b = select_df_b_raw_data
-    try: 
-        filtered_data_df_b = ff.filter_dfs(filtered_data_df_b,selected_genres,selected_tags,search_query)
+    st.subheader("Report Summary")
+    try:
+        # Flatten list columns (Genres, Tags)
+        all_genres = [g for sublist in df_A['Genres'] for g in sublist]
+        all_tags = [t for sublist in df_A['Tags'] for t in sublist]
+        # Most popular genre
+        most_popular_genre = pd.Series(all_genres).value_counts().idxmax()
+        # Most popular tag
+        most_popular_tag = pd.Series(all_tags).value_counts().idxmax()
     except:
-        st.write("Error filtering data")
+        st.write("ERROR GETTING TAGS OR GENRES")
+        most_popular_genre = "N/A"
+        most_popular_tag = "N/A"
 
-    st.write(filtered_data_df_b)
-        
+    # Trending new games
+    # Requires 'Rank' column (1 = highest) and 'Days Since Release' column
+    trending_new_games = df_A[
+        (df_A['Rank'] <= 20) &
+        (df_A['Days Since Release'] <= 30)
+    ]['Game'].tolist()
+
+    # Display in Streamlit
+    st.write(f"**Most Popular Genre:** {most_popular_genre}")
+    st.write(f"**Most Popular Tag:** {most_popular_tag}")
+    st.write(f"**Trending New Games:** {', '.join(trending_new_games) if trending_new_games else 'None'}")
     st.divider()
-    # Create bar plot
-    st.subheader("Genre Counts Comparison (Feb vs. Mar)")
-    GenreCounts = pd.read_csv(os.path.join(curr_dir,"Generated_Data","GenreCounts.csv"))    # Dashboard title
+    # # Create bar plot
+    # st.subheader("Genre Counts Comparison (Feb vs. Mar)")
+    # GenreCounts = pd.read_csv(os.path.join(curr_dir,"Generated_Data","GenreCounts.csv"))    # Dashboard title
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    GenreCounts.set_index('Genres').plot(kind='bar', ax=ax)
-    ax.set_xlabel("Genres")
-    ax.set_ylabel("Count")
-    ax.set_title("Genre Counts: February vs. March")
+    # fig, ax = plt.subplots(figsize=(10, 6))
+    # GenreCounts.set_index('Genres').plot(kind='bar', ax=ax)
+    # ax.set_xlabel("Genres")
+    # ax.set_ylabel("Count")
+    # ax.set_title("Genre Counts: February vs. March")
 
 
-    # Display plot in the Streamlit app
-    st.pyplot(fig,use_container_width=False)
+    # # Display plot in the Streamlit app
+    # st.pyplot(fig,use_container_width=False)
 
 
 # 
 def tag_evaluation():
-    dataframes = os.listdir("Steam Data")
-    generated_data = os.listdir("Generated_Data")
-    curr_dir = os.getcwd()
-
+    dates = scd.get_all_data_dates()
+    game_names = scd.get_all_game_names()
     # Display DataFrames
-    select_df = st.selectbox("Select a DataFrame to view", dataframes)
+    date_selected = st.selectbox("Select a DataFrame to view", dates)
     
-    date = ff.clean_str((Path(select_df).stem).replace("steam_top_games_",""))
     # Multiselect widget for genres
     selected_genres = st.multiselect('Select genres to filter by:', Genres)
     selected_tags = st.multiselect('Select tags to filter by:', Tags)
     # Text Input for Games
-    search_query = st.selectbox("Enter Game Name",[""] + scd.get_all_game_names())
+    search_query = st.selectbox("Enter Game Name",[""] + game_names)
     st.divider()
 
-    st.subheader("Steam Data for " + date)
-    data = pd.read_csv(os.path.join(curr_dir, "Steam Data", select_df),converters={'Genres': pd.eval, 'Tags': pd.eval})
+    st.subheader("Steam Data for " + date_selected)
+    steam_data = scd.load_all_steam_data()
+    steam_data = steam_data[steam_data["Date Collected"]==date_selected]
     try:
-        data = ff.filter_dfs(data,selected_genres,selected_tags,search_query)
-        st.write(data)
+        steam_data = ff.filter_dfs(steam_data,selected_genres,selected_tags,search_query)
+        st.write(steam_data)
     except:
         st.write("Failed to filter Data")
     st.divider()
-    st.subheader(f"Tags Comparison ({date})")
+    st.subheader(f"Tags Comparison ({date_selected})")
     
     try: 
-        tag_count = data['Tags'].explode().value_counts()
-        tag_importance_path = "feature_importances_"+date+ ".csv"
-        if tag_importance_path not in generated_data:
-            st.write("Calculating Tag Importance")
-            tag_distribution,x,y = ml.forest_ml(data)
-        else:
-            tag_distribution = pd.read_csv(os.path.join(curr_dir,"Generated_Data", tag_importance_path))
+        tag_count = steam_data['Tags'].explode().value_counts()
+        
         tag_distribution = tag_distribution[["Tag","Importance"]]
         final_tag = tag_distribution.merge(tag_count.rename('# Of Games with Tag'),left_on="Tag",right_index=True)
         st.write(final_tag)
         st.divider()
-        st.subheader("Tag Distribution for " + date)
+        st.subheader("Tag Distribution for " + date_selected)
         fig, ax = plt.subplots(figsize=(10, 6))
         tag_count.head(20).plot(kind='pie', ax=ax)
         ax.set_title("Tag Distribution")
@@ -125,60 +128,77 @@ def tag_evaluation():
     except:
         st.write("Error filtering data, data may not contain tags")
     
+import streamlit as st
+import math
+import plotly.express as px
+import plotly.graph_objects as go
+
 def compare_game_attributes_over_time():
     st.header("Game Stats Over Time")
 
-
+    # Initialize the session state list if not already present
     if "game_list" not in st.session_state:
         st.session_state.game_list = []
-    
 
-    # Text Input for Games
-    search_query = st.selectbox("Enter Game Name",[""] + scd.get_all_game_names())
+    # Dropdown to pick a game
+    search_query = st.selectbox("Select a Game to Add", [""] + scd.get_all_game_names())
 
+    # Add selected game to the list
     if st.button("Add Game"):
         if search_query and search_query not in st.session_state.game_list:
             st.session_state.game_list.append(search_query)
-    
+            st.rerun()  # rerun immediately so UI updates
 
-    # Displays the games added to the game list, with the option to remove them 
+    # Display the current game list with remove buttons
     st.subheader("Your Game List:")
-    for game in st.session_state.game_list:
-        col1,col2 = st.columns([4,1])
-        with col1:
-            st.write(game)
-        with col2:
-            if st.button(f"❌", key=f"remove_{game}"):
-                st.session_state.game_list.remove(game)
-                st.rerun()
-
     if st.session_state.game_list:
-            
-        # Passes the game list to receive the games data over all of the dataframes
-        data = vf.get_game_data_over_time(set(st.session_state.game_list))
-        maximum_peak_count = int(data["Peak"].max())
-        intervals = math.ceil((maximum_peak_count//10)/50000)*50000
+        for game in st.session_state.game_list:
+            col1, col2 = st.columns([4, 1])
+            with col1:
+                st.write(game)
+            with col2:
+                if st.button("❌", key=f"remove_{game}"):
+                    st.session_state.game_list.remove(game)
+                    st.rerun()
+    else:
+        st.info("No games added yet. Use the dropdown to add games.")
 
+    # If there are games selected, display their trends
+    if st.session_state.game_list:
+        data = vf.get_game_data_over_time(set(st.session_state.game_list))
+
+        # Safeguard: skip if no matching data
+        if data.empty:
+            st.warning("No data found for the selected games.")
+            return
+
+        maximum_peak_count = int(data["Peak"].max())
+        # This line is probably not needed unless you use `intervals` later
+        # intervals = math.ceil((maximum_peak_count // 10) / 50000) * 50000
+
+        # Create line chart
         fig = px.line(
             data,
-            x = "Date Collected",
-            y = "Peak",
-            color = "Game",
-            title= "Peak Player Count Over Time",
-            labels= {"Peak":"Peak Player Count","Date Collected":"Date"}
+            x="Date Collected",
+            y="Peak",
+            color="Game",
+            title="Peak Player Count Over Time",
+            labels={"Peak": "Peak Player Count", "Date Collected": "Date"}
         )
+
+        # Optional: add red markers for points
         fig.add_trace(
-        go.Scatter(
-        x=data['Date Collected'],
-        y=data['Peak'],
-        mode='markers',
-        name='Saved Points',
-        marker=dict(size=8, color='red', symbol='circle')
-    )
-)
-        st.plotly_chart(fig,use_container_width=True)
-    else:
-        st.write("Add Games to the List to see their trends")
+            go.Scatter(
+                x=data["Date Collected"],
+                y=data["Peak"],
+                mode="markers",
+                name="Data Points",
+                marker=dict(size=6, color="red", symbol="circle")
+            )
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
 # The help page that explains what each column displays, and how to navigate the dashboard
 def help():
     st.header("Description")

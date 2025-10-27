@@ -1,12 +1,37 @@
-from functions import data_funcs
+import os
+import pandas as pd
 from datetime import datetime
 
-# Retrives the data for today from all sources and saves the game data along with various details on the pipeline
-game_data,details_failed,game_failed,tags_failed,dateCollected = data_funcs.get_game_data(8)
+from functions import data_funcs
 
-print(game_data.head(10))
+# Steam Top Games Data from Web scraping
+game_data, details_failed, game_failed, tags_failed = data_funcs.get_game_data(8)
+print(game_data)
+# Standardize today's date in ISO format
+dateCollected = datetime.now().strftime("%Y-%m-%d")
+game_data["Date Collected"] = dateCollected
 
+# Directory for CSVs
+data_dir = os.path.join(os.getcwd(), "Steam Combined Data")
+os.makedirs(data_dir, exist_ok=True)
 
-file_name ="steam_top_games_{}".format((datetime.now()).strftime("%m-%d-%Y_%H-%M-%S"))
+# Save Overall Data
+overall_file = os.path.join(data_dir, "Steam_Overall_Data.csv")
 
-game_data.to_csv(f"Steam Data/{file_name}.csv", index=False)
+if os.path.exists(overall_file):
+    overall_df = pd.read_csv(overall_file,parse_dates=["Date Collected"],index_col=False)
+
+    # Standardize existing dates to ISO format
+    if "Date Collected" in overall_df.columns:
+        overall_df["Date Collected"] = pd.to_datetime(overall_df["Date Collected"], errors="coerce").dt.strftime("%Y-%m-%d")
+
+    # Check for today's entry
+    if dateCollected in overall_df["Date Collected"].values:
+        print("Data for today already exists in Steam_Overall_Data.csv, skipping save.")
+    else:
+        overall_df = pd.concat([overall_df, game_data], ignore_index=True)
+        overall_df.to_csv(overall_file, index=False)
+        print("Saved updated Steam_Overall_Data.csv")
+else:
+    game_data.to_csv(overall_file, index=False)
+    print("Created Steam_Overall_Data.csv")

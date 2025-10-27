@@ -1,23 +1,23 @@
 import streamlit as st
 import os
 import pandas as pd
+from functions import filter_funcs as ff
 
 @st.cache_data
 def load_all_steam_data():
-    dataframes = {}
-    data_dir = os.path.join(os.getcwd(), "Steam Data")
-    for file in os.listdir(data_dir):
-        if file.endswith(".csv"):
-            df = pd.read_csv(
-                os.path.join(data_dir, file),
-                converters={'Genres': pd.eval, 'Tags': pd.eval}
-            )
-            dataframes[file] = df
-    return dataframes
+    steam_data = pd.read_csv(os.path.join("Steam Combined Data","Steam_Overall_Data.csv"),converters={
+        "Genres": ff.safe_literal_eval,
+        "Tags": ff.safe_literal_eval
+    })
+    return steam_data
 
 @st.cache_data
 def get_all_game_names():
-    dataframes = load_all_steam_data()
-    large_dataframe = pd.concat(dataframes.values(),ignore_index=True)
-    game_names = large_dataframe['Game'].unique()
+    dataframe = load_all_steam_data()
+    game_names = dataframe['Game'].unique()
     return list(game_names)
+
+def get_all_data_dates():
+    dataframe = load_all_steam_data()
+    dates = dataframe["Date Collected"].unique()
+    return list(dates)
