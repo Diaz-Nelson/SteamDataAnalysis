@@ -9,7 +9,7 @@ import streamlit as st
 try:
     from creds import CONNECTION_STRING
 except ImportError:
-    CONNECTION_STRING = st.secrets["STEAM_KEY"]
+    CONNECTION_STRING = st.secrets["CONNECTION_STRING"]
 
 @st.cache_data(ttl=600)
 def load_all_steam_data():
