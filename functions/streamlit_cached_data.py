@@ -2,14 +2,25 @@ import streamlit as st
 import os
 import pandas as pd
 from functions import filter_funcs as ff
+from pymongo import MongoClient
+import streamlit as st
 
-@st.cache_data
+
+try:
+    from creds import CONNECTION_STRING
+except ImportError:
+    CONNECTION_STRING = st.secrets["STEAM_KEY"]
+
+@st.cache_data(ttl=600)
 def load_all_steam_data():
-    steam_data = pd.read_csv(os.path.join("Steam Combined Data","Steam_Overall_Data.csv"),converters={
-        "Genres": ff.safe_literal_eval,
-        "Tags": ff.safe_literal_eval
-    })
-    return steam_data
+    client = MongoClient(CONNECTION_STRING)
+    db = client["SteamCollectedData"]
+    collection = db["Steam Data"]
+    data = list(collection.find({}))
+    df = pd.DataFrame(data)
+    df.drop(columns=["_id"], inplace=True)
+    return df
+
 
 @st.cache_data
 def get_all_game_names():

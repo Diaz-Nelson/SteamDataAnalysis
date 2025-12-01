@@ -1,8 +1,15 @@
 import os
 import pandas as pd
 from datetime import datetime
-
 from functions import data_funcs
+from pymongo import MongoClient
+import creds
+
+
+# 1. Connect to MongoDB
+client = MongoClient(creds.CONNECTION_STRING)
+db = client["SteamCollectedData"]
+collection = db["Steam Data"]
 
 # Steam Top Games Data from Web scraping
 game_data, details_failed, game_failed, tags_failed = data_funcs.get_game_data(8)
@@ -30,6 +37,9 @@ if os.path.exists(overall_file):
         print("Data for today already exists in Steam_Overall_Data.csv, skipping save.")
     else:
         overall_df = pd.concat([overall_df, game_data], ignore_index=True)
+        # 3. Convert to dictionary and upload
+        data = overall_df.to_dict("records")
+        collection.insert_many(data)
         overall_df.to_csv(overall_file, index=False)
         print("Saved updated Steam_Overall_Data.csv")
 else:

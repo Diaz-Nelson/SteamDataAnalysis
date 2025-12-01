@@ -15,7 +15,6 @@ from functions import ml_funcs as ml
 from functions import visualization_funcs as vf
 from functions import streamlit_cached_data as scd
 
-
 # Main Front page of the dashboard, can compare 2 dataframes to each other as well as filter
 def overview():
     st.header("Steam Data Comparison Overview")
@@ -73,20 +72,6 @@ def overview():
     st.write(f"**Most Popular Tag:** {most_popular_tag}")
     st.write(f"**Trending New Games:** {', '.join(trending_new_games) if trending_new_games else 'None'}")
     st.divider()
-    # # Create bar plot
-    # st.subheader("Genre Counts Comparison (Feb vs. Mar)")
-    # GenreCounts = pd.read_csv(os.path.join(curr_dir,"Generated_Data","GenreCounts.csv"))    # Dashboard title
-
-    # fig, ax = plt.subplots(figsize=(10, 6))
-    # GenreCounts.set_index('Genres').plot(kind='bar', ax=ax)
-    # ax.set_xlabel("Genres")
-    # ax.set_ylabel("Count")
-    # ax.set_title("Genre Counts: February vs. March")
-
-
-    # # Display plot in the Streamlit app
-    # st.pyplot(fig,use_container_width=False)
-
 
 # 
 def tag_evaluation():
@@ -127,11 +112,6 @@ def tag_evaluation():
         st.pyplot(fig,use_container_width=False)
     except:
         st.write("Error filtering data, data may not contain tags")
-    
-import streamlit as st
-import math
-import plotly.express as px
-import plotly.graph_objects as go
 
 def compare_game_attributes_over_time():
     st.header("Game Stats Over Time")
@@ -162,6 +142,14 @@ def compare_game_attributes_over_time():
                     st.rerun()
     else:
         st.info("No games added yet. Use the dropdown to add games.")
+        return  # Exit early if no games
+
+    # Option to switch between Current and Peak counts
+    metric_choice = st.radio(
+        "Select which player count to display:",
+        ("Current", "Peak"),
+        horizontal=True
+    )
 
     # If there are games selected, display their trends
     if st.session_state.game_list:
@@ -172,25 +160,21 @@ def compare_game_attributes_over_time():
             st.warning("No data found for the selected games.")
             return
 
-        maximum_peak_count = int(data["Peak"].max())
-        # This line is probably not needed unless you use `intervals` later
-        # intervals = math.ceil((maximum_peak_count // 10) / 50000) * 50000
-
-        # Create line chart
+        # Create line chart dynamically based on choice
         fig = px.line(
             data,
             x="Date Collected",
-            y="Peak",
+            y=metric_choice,
             color="Game",
-            title="Peak Player Count Over Time",
-            labels={"Peak": "Peak Player Count", "Date Collected": "Date"}
+            title=f"{metric_choice} Player Count Over Time",
+            labels={metric_choice: f"{metric_choice} Player Count", "Date Collected": "Date"}
         )
 
-        # Optional: add red markers for points
+        # Add red markers for points
         fig.add_trace(
             go.Scatter(
                 x=data["Date Collected"],
-                y=data["Peak"],
+                y=data[metric_choice],
                 mode="markers",
                 name="Data Points",
                 marker=dict(size=6, color="red", symbol="circle")
