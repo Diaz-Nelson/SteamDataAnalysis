@@ -13,7 +13,7 @@ collection = db["Steam Data"]
 
 # Steam Top Games Data from Web scraping
 game_data, details_failed, game_failed, tags_failed = data_funcs.get_game_data(8)
-print(game_data)
+game_data["Rank"] = pd.to_numeric(game_data["Rank"].str.replace(r"\.", "", regex=True), errors="coerce").astype("Int64")
 # Standardize today's date in ISO format
 dateCollected = datetime.now().strftime("%Y-%m-%d")
 game_data["Date Collected"] = dateCollected

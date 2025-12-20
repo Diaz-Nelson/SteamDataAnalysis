@@ -1,10 +1,9 @@
 import streamlit as st
-import os
 import pandas as pd
 from functions import filter_funcs as ff
 from pymongo import MongoClient
 import streamlit as st
-
+import ast
 
 try:
     from creds import CONNECTION_STRING
@@ -19,7 +18,19 @@ def load_all_steam_data():
     data = list(collection.find({}))
     df = pd.DataFrame(data)
     df.drop(columns=["_id"], inplace=True)
+
+    list_columns = ["Genres", "Tags"]
+
+    for col in list_columns:
+        if col in df.columns:
+            df[col] = df[col].apply(lambda x: 
+                x if isinstance(x, list) 
+                else ast.literal_eval(x) if isinstance(x, str) and x.startswith("[") 
+                else []
+            )
+
     return df
+
 
 
 @st.cache_data

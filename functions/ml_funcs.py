@@ -39,7 +39,8 @@ def forest_ml(data):
     data = data.dropna(subset=['Tags','Popularity'])
     test_with_tags = pd.concat([data, tag_dummies], axis=1).dropna()
 
-    X = test_with_tags.drop(columns=['Game','Genres','Tags','Popularity','App ID','Release Date','Rank','Days Since Release','All Review Score','All Review Count','Recent Review Score','Recent Review Count','Current','Peak','Player Hours'])
+    X = test_with_tags.drop(columns=['Date Collected','Game','Genres','Tags','Popularity','App ID','Release Date','Rank','Days Since Release','All Review Score','All Review Count','Recent Review Score','Recent Review Count','Current','Peak','Player Hours'])
+    print(X.columns)
     y = test_with_tags['Popularity']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)

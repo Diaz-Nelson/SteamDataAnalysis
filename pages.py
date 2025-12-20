@@ -100,7 +100,8 @@ def tag_evaluation():
     
     try: 
         tag_count = steam_data['Tags'].explode().value_counts()
-        
+        tag_distribution, mse, r2 = ml.forest_ml(steam_data)
+        print(f"MSE: {mse}, R2: {r2}")
         tag_distribution = tag_distribution[["Tag","Importance"]]
         final_tag = tag_distribution.merge(tag_count.rename('# Of Games with Tag'),left_on="Tag",right_index=True)
         st.write(final_tag)
@@ -110,8 +111,9 @@ def tag_evaluation():
         tag_count.head(20).plot(kind='pie', ax=ax)
         ax.set_title("Tag Distribution")
         st.pyplot(fig,use_container_width=False)
-    except:
+    except Exception as e:
         st.write("Error filtering data, data may not contain tags")
+        print(e)
 
 def compare_game_attributes_over_time():
     st.header("Game Stats Over Time")
