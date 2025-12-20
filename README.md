@@ -1,6 +1,6 @@
 # Steam Gaming Trends Analysis
 
-A data-driven project analyzing current gaming trends on Steam to uncover which tags and features contribute to a game's success. This tool tracks the top games on Steam in real-time and evaluates the effectiveness of various game tags using machine learning and visual analytics.
+A data-driven project analyzing current gaming trends on Steam to uncover which tags and features contribute to a game's success. This tool tracks the top games on Steam daily and evaluates the effectiveness of various game tags using machine learning and visual analytics. 
 
 ## Project Summary
 
@@ -17,6 +17,9 @@ Between February 2025 and March 2025, I built a system that:
 - **Tag Importance Analysis**: Discover which tags correlate with higher game success.
 - **Tag Synergy Heatmap**: Explore how tags interact and which combinations historically perform best.
 - **Success Score Model**: A custom formula to estimate how successful a game is based on multiple factors like user reviews, player engagement, and retention.
+- **Automated Data-Scraping**: Steam Data is collected daily at 7 PM via automated Windows Scheduler script. 
+- **Cloud Stored Data**: All collected data is saved online onto a Mongo Database for simple storage. 
+
 
 ##  Tech Stack
 
@@ -26,6 +29,7 @@ Between February 2025 and March 2025, I built a system that:
 - **Matplotlib & Seaborn**: Data visualization
 - **Streamlit**: Web-based interactive dashboard
 - **Steam API + Web Scraping**: Data sourcing
+- **Mongo Database**: Cloud Storage
 
 
 
