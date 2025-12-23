@@ -9,6 +9,7 @@ Between February 2025 and March 2025, I built a system that:
 - Scrapes and collects data from the top 400 Steam games.
 - Analyzes the relationship between game tags and overall success.
 - Uses machine learning (Random Forest Regressor) to identify the most influential tags.
+- Predicts a games possible success metric or current relevancy
 - Visualizes key insights through an interactive Streamlit dashboard.
 
 ## Key Features
