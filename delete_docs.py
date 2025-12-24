@@ -5,10 +5,75 @@ client = MongoClient(creds.CONNECTION_STRING)
 db = client["SteamCollectedData"]
 collection = db["Steam Data"]
 
-# Date to delete
-target_date = "2025-12-01"
 
-# Delete all documents with this date
-result = collection.delete_many({"Date Collected": target_date})
+collection.update_many(
+    {},
+    [
+        {
+            "$set": {
+                "Current": {
+                    "$convert": {
+                        "input": {
+                            "$cond": [
+                                { "$eq": [{ "$type": "$Current" }, "string"] },
+                                {
+                                    "$replaceAll": {
+                                        "input": "$Current",
+                                        "find": ".",
+                                        "replacement": ""
+                                    }
+                                },
+                                "$Current"
+                            ]
+                        },
+                        "to": "int",
+                        "onError": None,
+                        "onNull": None
+                    }
+                },
 
-print(f"Deleted {result.deleted_count} documents from the collection.")
+                "Peak": {
+                    "$convert": {
+                        "input": {
+                            "$cond": [
+                                { "$eq": [{ "$type": "$Peak" }, "string"] },
+                                {
+                                    "$replaceAll": {
+                                        "input": "$Peak",
+                                        "find": ".",
+                                        "replacement": ""
+                                    }
+                                },
+                                "$Peak"
+                            ]
+                        },
+                        "to": "int",
+                        "onError": None,
+                        "onNull": None
+                    }
+                },
+
+                "Player Hours": {
+                    "$convert": {
+                        "input": {
+                            "$cond": [
+                                { "$eq": [{ "$type": "$Player Hours" }, "string"] },
+                                {
+                                    "$replaceAll": {
+                                        "input": "$Player Hours",
+                                        "find": ".",
+                                        "replacement": ""
+                                    }
+                                },
+                                "$Player Hours"
+                            ]
+                        },
+                        "to": "long",
+                        "onError": None,
+                        "onNull": None
+                    }
+                }
+            }
+        }
+    ]
+)
