@@ -14,6 +14,8 @@ collection = db["Steam Data"]
 # Steam Top Games Data from Web scraping
 game_data, details_failed, game_failed, tags_failed = data_funcs.get_game_data(8)
 game_data["Rank"] = pd.to_numeric(game_data["Rank"].str.replace(r"\.", "", regex=True), errors="coerce").astype("Int64")
+game_data["App ID"] = pd.to_numeric(game_data["Rank"].str.replace(r"\.", "", regex=True), errors="coerce").astype("Int64")
+
 game_data["Current"] = pd.to_numeric(game_data["Current"].str.replace(r"\.", "", regex=True), errors="coerce").astype("Int64")
 game_data["Peak"] = pd.to_numeric(game_data["Peak"].str.replace(r"\.", "", regex=True), errors="coerce").astype("Int64")
 game_data["Player Hours	"] = pd.to_numeric(game_data["Player Hours	"].str.replace(r"\.", "", regex=True), errors="coerce").astype("Int64")

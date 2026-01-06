@@ -28,7 +28,7 @@ def load_all_steam_data():
                 else ast.literal_eval(x) if isinstance(x, str) and x.startswith("[") 
                 else []
             )
-
+    
     return df
 
 
@@ -41,5 +41,6 @@ def get_all_game_names():
 
 def get_all_data_dates():
     dataframe = load_all_steam_data()
-    dates = dataframe["Date Collected"].unique()
-    return list(dates)
+    dates = dataframe["Date Collected"].unique().tolist()
+    dates.sort(reverse = True)
+    return dates

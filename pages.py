@@ -33,7 +33,7 @@ def overview():
     st.divider()
 
     # Display DataFrame A
-    selected_date = st.selectbox("A: Select a Date to view", dates, index=len(dates) - 1)
+    selected_date = st.selectbox("A: Select a Date to view", dates, index=0)
     st.subheader(f"{selected_date} Data Overview")
 
     df_A = steam_data[steam_data["Date Collected"]==selected_date]
@@ -65,12 +65,16 @@ def overview():
     trending_new_games = df_A[
         (df_A['Rank'] <= 20) &
         (df_A['Days Since Release'] <= 30)
-    ]['Game'].tolist()
+    ]['Game'].unique().tolist()
+
+    new_game_releases = df_A[df_A["Days Since Release"]<=15]["Game"].unique().tolist()
 
     # Display in Streamlit
-    st.write(f"**Most Popular Genre:** {most_popular_genre}")
-    st.write(f"**Most Popular Tag:** {most_popular_tag}")
-    st.write(f"**Trending New Games:** {', '.join(trending_new_games) if trending_new_games else 'None'}")
+    st.write(f"**Most Popular Genre:**  {most_popular_genre}")
+    st.write(f"**Most Popular Tag:**    {most_popular_tag}")
+    st.write(f"**Trending New Games:**   {', '.join(trending_new_games) if trending_new_games else 'None'}")
+    st.write(f"**All new Releases:** {', '.join(new_game_releases) if new_game_releases else 'None'}")
+
     st.divider()
 
 # 
