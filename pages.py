@@ -17,22 +17,42 @@ from functions import streamlit_cached_data as scd
 
 # Main Front page of the dashboard, can compare 2 dataframes to each other as well as filter
 def overview():
-    st.header("Steam Data Comparison Overview")
 
     # Gets static data from cache to be used later
     steam_data = scd.load_all_steam_data()
     dates = scd.get_all_data_dates()
-    
+    daily_player_count_data = scd.daily_player_count()
     game_names = scd.get_all_game_names()
+
+    # Create line chart dynamically based on choice
+    fig = px.line(
+        daily_player_count_data,
+        x="Date Collected",
+        y="Current",
+        title=f"Top Steam Game's Total Player Count Over {len(dates)} Days",
+        labels={"Player Count": "Player Count", "Date Collected": "Date"}
+    )
+
+    # Add Markers for points
+    fig.add_trace(
+        go.Scatter(
+            x=daily_player_count_data["Date Collected"],
+            y=daily_player_count_data["Current"],
+            mode="markers",
+            name="Data Points"
+        )
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.divider()
+
+    st.header("Dataframe Comparisons")
     # Multiselect widget for genres
     selected_genres = st.multiselect('Select genres to filter by:', Genres)
     selected_tags = st.multiselect('Select tags to filter by:', Tags)
     # Text Input for Games
     search_query = st.selectbox("Enter Game Name",[""] + game_names)
 
-    st.divider()
-
-    # Display DataFrame A
+    # Display DataFrame 
     selected_date = st.selectbox("A: Select a Date to view", dates, index=0)
     st.subheader(f"{selected_date} Data Overview")
 
@@ -45,7 +65,6 @@ def overview():
 
     st.write(filtered_data_df_A)
 
-    
     st.subheader("Report Summary")
     try:
         # Flatten list columns (Genres, Tags)
@@ -77,29 +96,18 @@ def overview():
 
     st.divider()
 
-# 
+# Page that will handle tag evaluations
 def tag_evaluation():
     dates = scd.get_all_data_dates()
     game_names = scd.get_all_game_names()
     # Display DataFrames
     date_selected = st.selectbox("Select a DataFrame to view", dates)
-    
-    # Multiselect widget for genres
-    selected_genres = st.multiselect('Select genres to filter by:', Genres)
-    selected_tags = st.multiselect('Select tags to filter by:', Tags)
-    # Text Input for Games
-    search_query = st.selectbox("Enter Game Name",[""] + game_names)
-    st.divider()
 
+    # Sets subheader for the section
     st.subheader("Steam Data for " + date_selected)
     steam_data = scd.load_all_steam_data()
     steam_data = steam_data[steam_data["Date Collected"]==date_selected]
-    try:
-        steam_data = ff.filter_dfs(steam_data,selected_genres,selected_tags,search_query)
-        st.write(steam_data)
-    except:
-        st.write("Failed to filter Data")
-    st.divider()
+
     st.subheader(f"Tags Comparison ({date_selected})")
     
     try: 
@@ -109,9 +117,7 @@ def tag_evaluation():
         tag_distribution = tag_distribution[["Tag","Importance"]]
         final_tag = tag_distribution.merge(tag_count.rename('# Of Games with Tag'),left_on="Tag",right_index=True)
         st.write(final_tag)
-        st.divider()
-        st.subheader("Tag Distribution for " + date_selected)
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig, ax = plt.subplots(figsize=(5,5))
         tag_count.head(20).plot(kind='pie', ax=ax)
         ax.set_title("Tag Distribution")
         st.pyplot(fig,use_container_width=False)
@@ -182,8 +188,7 @@ def compare_game_attributes_over_time():
                 x=data["Date Collected"],
                 y=data[metric_choice],
                 mode="markers",
-                name="Data Points",
-                marker=dict(size=6, color="red", symbol="circle")
+                name="Data Points"
             )
         )
 

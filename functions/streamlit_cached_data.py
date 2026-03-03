@@ -32,6 +32,12 @@ def load_all_steam_data():
     return df
 
 
+@st.cache_data
+def daily_player_count():
+    all_df = load_all_steam_data()
+
+    p_count = all_df[["Date Collected","Current"]].groupby(["Date Collected"]).sum().reset_index()
+    return p_count
 
 @st.cache_data
 def get_all_game_names():
