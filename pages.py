@@ -30,19 +30,12 @@ def overview():
         x="Date Collected",
         y="Current",
         title=f"Top Steam Game's Total Player Count Over {len(dates)} Days",
-        labels={"Player Count": "Player Count", "Date Collected": "Date"}
+        labels={"Player Count": "Player Count", "Date Collected": "Date"},
+        markers= True
     )
 
-    # Add Markers for points
-    fig.add_trace(
-        go.Scatter(
-            x=daily_player_count_data["Date Collected"],
-            y=daily_player_count_data["Current"],
-            mode="markers",
-            name="Data Points"
-        )
-    )
-    st.plotly_chart(fig, use_container_width=True)
+    # Display the chart
+    st.plotly_chart(fig, width="stretch")
     st.divider()
 
     st.header("Dataframe Comparisons")
@@ -60,24 +53,21 @@ def overview():
     filtered_data_df_A = df_A
     try:
         filtered_data_df_A = ff.filter_dfs(filtered_data_df_A,selected_genres,selected_tags,search_query)
-    except:
-        st.write("Error filtering data")
+    except Exception as e:
+        st.write(f"Error filtering data. Error :{e}")
 
     st.write(filtered_data_df_A)
 
     st.subheader("Report Summary")
     try:
         # Flatten list columns (Genres, Tags)
-        all_genres = [g for sublist in df_A['Genres'] for g in sublist]
-        all_tags = [t for sublist in df_A['Tags'] for t in sublist]
-        # Most popular genre
-        most_popular_genre = pd.Series(all_genres).value_counts().idxmax()
-        # Most popular tag
-        most_popular_tag = pd.Series(all_tags).value_counts().idxmax()
-    except:
-        st.write("ERROR GETTING TAGS OR GENRES")
-        most_popular_genre = "N/A"
-        most_popular_tag = "N/A"
+        most_popular_genres = df_A['Genres'].explode().value_counts().head(3).index
+        most_popular_tags = df_A['Tags'].explode().value_counts().head(3).index
+    
+    except Exception as e:
+        st.warning(f"ERROR GETTING TAGS OR GENRES. Error:{e}")
+        most_popular_genres = []
+        most_popular_tags = []
 
     # Trending new games
     # Requires 'Rank' column (1 = highest) and 'Days Since Release' column
@@ -88,11 +78,21 @@ def overview():
 
     new_game_releases = df_A[df_A["Days Since Release"]<=15]["Game"].unique().tolist()
 
-    # Display in Streamlit
-    st.write(f"**Most Popular Genre:**  {most_popular_genre}")
-    st.write(f"**Most Popular Tag:**    {most_popular_tag}")
-    st.write(f"**Trending New Games:**   {', '.join(trending_new_games) if trending_new_games else 'None'}")
-    st.write(f"**All new Releases:** {', '.join(new_game_releases) if new_game_releases else 'None'}")
+    # Top Row 
+    col1,col2 = st.columns(2)
+    with col1:
+        st.metric("Most Popular Genres", f"{', '.join(most_popular_genres) if not most_popular_genres.empty else 'None'}")
+    with col2:
+        st.metric(f"Most Popular Tags", f"{', '.join(most_popular_tags) if not most_popular_tags.empty else 'None'}")
+
+    # Bottom Row
+    col3, col4 = st.columns(2)
+    with col3:
+        st.markdown("** Trending New Games:**")
+        st.info(', '.join(trending_new_games) if trending_new_games else 'None')
+    with col4:
+        st.markdown("** All New Releases:**")
+        st.info(', '.join(new_game_releases) if new_game_releases else 'None')
 
     st.divider()
 
@@ -179,41 +179,34 @@ def compare_game_attributes_over_time():
             y=metric_choice,
             color="Game",
             title=f"{metric_choice} Player Count Over Time",
-            labels={metric_choice: f"{metric_choice} Player Count", "Date Collected": "Date"}
+            labels={metric_choice: f"{metric_choice} Player Count", "Date Collected": "Date"},
+            markers=True
         )
-
-        # Add red markers for points
-        fig.add_trace(
-            go.Scatter(
-                x=data["Date Collected"],
-                y=data[metric_choice],
-                mode="markers",
-                name="Data Points"
-            )
-        )
-
         st.plotly_chart(fig, use_container_width=True)
 
 # The help page that explains what each column displays, and how to navigate the dashboard
 def help():
     st.header("Description")
-    st.write("This is a dashboard that allows you to compare Steam game data from different months")
-    st.write("The Overview page allows you to compare the data from two different months")
-    st.write("The Tag Evaluation page allows you to see the importance of tags in the data")
-    st.write("The Game Trend page allows you to see how the peak player counts fluctuates of multiple games")
+    st.markdown("""
+    This is a dashboard that allows you to compare Steam game data from different months.
+    * **Overview:** Compare the data from two different dates.
+    * **Tag Evaluation:** See the importance and distribution of tags in the data.
+    * **Game Trend:** See how the player counts fluctuate for multiple games over time.
+    """)
 
-
-    st.header("Columns")
-    st.write("Game: The name of the game")
-    st.write("Current: The current number of players when the data was collected")
-    st.write("Peak: The peak number of players that day")
-    st.write("Player Hours: The number of hours played that day")
-    st.write("App ID: The ID of the game")
-    st.write("Release Date: The date the game was released")
-    st.write("Genres: The genres of the game set by Steam")
-    st.write("Tags: The tags associated with the game set by the Community")
-    st.write("Days Since Release: The number of days since the game was released since the data was collected")
-    st.write("All Review Score: The review score of the game, the higher score the most positive reviews")
-    st.write("All Review Count: The number of reviews")
-    st.write("Recent Review Score: The review score of the game in the past month")
-    st.write("Recent Review Count: The number of reviews in the past month")
+    st.header("Data Dictionary")
+    st.markdown("""
+    * **Game:** The name of the game
+    * **Current:** The current number of players when the data was collected
+    * **Peak:** The peak number of players that day
+    * **Player Hours:** The number of hours played that day
+    * **App ID:** The unique Steam ID of the game
+    * **Release Date:** The date the game was released
+    * **Genres:** The genres of the game (set by Steam)
+    * **Tags:** The tags associated with the game (set by the Community)
+    * **Days Since Release:** The number of days between the release date and data collection
+    * **All Review Score:** The overall review score (higher = more positive)
+    * **All Review Count:** The total number of reviews
+    * **Recent Review Score:** The review score over the past month
+    * **Recent Review Count:** The number of reviews in the past month
+    """)
