@@ -57,4 +57,4 @@ Between February 2025 and March 2025, I built a system that:
 
 ## 📬 Contact
 
-Have feedback or ideas to collaborate? Feel free to reach out!
+Have feedback or ideas to collaborate? Feel free to reach out @ nelsondiaz061603@gmail.com !
