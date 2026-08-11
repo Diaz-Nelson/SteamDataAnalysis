@@ -2,6 +2,10 @@
 
 A data-driven project analyzing current gaming trends on Steam to uncover which tags and features contribute to a game's success. This tool tracks the top games on Steam daily and evaluates the effectiveness of various game tags using machine learning and visual analytics. 
 
+## 🌐 Live Demo
+
+[https://steamdataanalysisnd.streamlit.app/]
+
 ## Project Summary
 
 Between February 2025 and March 2025, I built a system that:
@@ -48,9 +52,6 @@ Between February 2025 and March 2025, I built a system that:
 - Introduce temporal trend tracking (e.g., monthly tag performance changes).
 
 
-## 🌐 Live Demo
-
-[https://steamdataanalysisnd.streamlit.app/]
 
 ---
 
