@@ -23,7 +23,8 @@ Between February 2025 and March 2025, I built a system that:
 - **Tag Synergy Heatmap**: Explore how tags interact and which combinations historically perform best.
 - **Success Score Model**: A custom formula to estimate how successful a game is based on multiple factors like user reviews, player engagement, and retention.
 - **Automated Data-Scraping**: Steam Data is collected daily at 7 PM via automated Windows Scheduler script. 
-- **Cloud Stored Data**: All collected data is saved online onto a Mongo Database for simple storage. 
+- **Cloud Stored Data**: All collected data is saved online onto a Mongo Database for simple storage.
+- **Size**: Over 1 Year of Data Collection with 40k+ Rows of Historical Data
 
 
 ##  Tech Stack
