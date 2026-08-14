@@ -4,9 +4,13 @@ from functions import data_funcs
 from pymongo import MongoClient
 import creds
 
-client = MongoClient(creds.CONNECTION_STRING)
-db = client["SteamCollectedData"]
-collection = db["Steam Data"]
+try:
+    client = MongoClient(creds.CONNECTION_STRING)
+    db = client["SteamCollectedData"]
+    collection = db["Steam Data"]
+except Exception as e:
+    print("There was an issue loading in the MongoDB Database!",e)
+    
 
 game_data, details_failed, game_failed, tags_failed = data_funcs.get_game_data(8)
 

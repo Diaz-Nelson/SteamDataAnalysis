@@ -13,7 +13,7 @@ def get_game_data_over_time(game_names:set):
     # Receives all the dataframes from the streamlit cache
     df = scd.load_all_steam_data()
 
-    game_data = df[df["Game"].isin(game_names)][["Game", "Peak","Current", "Date Collected"]]
+    game_data = df[df["Game"].isin(game_names)][["Game", "Peak","Current", "Date Collected","Recent Review Score","Rank"]]
     game_data = game_data.sort_values("Date Collected")
 
     return game_data

@@ -1,12 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-import time
 from datetime import datetime
 import streamlit as st
-import os
-import re
 from pymongo import MongoClient
+
 try:
     from creds import STEAM_KEY,CONNECTION_STRING
 except ImportError:
@@ -44,8 +42,6 @@ def get_steam_reviews_tags(app_id):
             tags = [tag.text.strip() for tag in soup.select(".app_tag")][:-1]
             if not tags:
                 print("FAILED TO GET TAGS FOR",app_id)
-
-
 
             # Get review summary
             review_summary = soup.select(".user_reviews_summary_row .game_review_summary")
@@ -144,6 +140,7 @@ def scrape_steam_charts(pages):
             game_data.append({"Rank": rank, "Game": game, "Current": current_players, "Peak": peak_players, "App ID": app_id, "Player Hours": hours})
     return pd.DataFrame(game_data)
 
+# First in the pipeline, gets the top games from Steam Charts web page
 def get_game_data(pages=2):
     """
     Scrapes Steam Charts data and enriches it with Steam API game details.
@@ -208,8 +205,6 @@ dateCollected = datetime.now().strftime("%Y-%m-%d")
 game_data["Date Collected"] = dateCollected
 
 if collection.count_documents({"Date Collected": dateCollected}, limit=1) == 0:
-    # collection.insert_many(game_data.to_dict("records"))
-    # print("Inserted today's Steam data into MongoDB")
     print(game_data.head(4))
 else:
     print("Data for today already exists in MongoDB, skipping insert")

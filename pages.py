@@ -15,6 +15,7 @@ from functions import ml_funcs as ml
 from functions import visualization_funcs as vf
 from functions import streamlit_cached_data as scd
 
+
 # Main Front page of the dashboard, can compare 2 dataframes to each other as well as filter
 def overview():
 
@@ -30,7 +31,7 @@ def overview():
         x="Date Collected",
         y="Current",
         title=f"Top Steam Game's Total Player Count Over {len(dates)} Days",
-        labels={"Player Count": "Player Count", "Date Collected": "Date"},
+        labels={"Current": "Player Count", "Date Collected": "Date"},
         markers= True
     )
 
@@ -45,10 +46,11 @@ def overview():
     # Text Input for Games
     search_query = st.selectbox("Enter Game Name",[""] + game_names)
 
-    # Display DataFrame 
-    selected_date = st.selectbox("A: Select a Date to view", dates, index=0)
+    # Get the date of the data to display
+    selected_date = st.date_input("Select a Date to view",value=dates[0], min_value=min(dates),max_value=max(dates),).strftime("%Y-%m-%d")
     st.subheader(f"{selected_date} Data Overview")
 
+    # Filter the entire dataset on only the selected date
     df_A = steam_data[steam_data["Date Collected"]==selected_date]
     filtered_data_df_A = df_A
     try:
@@ -88,10 +90,10 @@ def overview():
     # Bottom Row
     col3, col4 = st.columns(2)
     with col3:
-        st.markdown("** Trending New Games:**")
+        st.markdown("**Trending New Games:**")
         st.info(', '.join(trending_new_games) if trending_new_games else 'None')
     with col4:
-        st.markdown("** All New Releases:**")
+        st.markdown("**All New Releases:**")
         st.info(', '.join(new_game_releases) if new_game_releases else 'None')
 
     st.divider()
@@ -99,16 +101,15 @@ def overview():
 # Page that will handle tag evaluations
 def tag_evaluation():
     dates = scd.get_all_data_dates()
-    game_names = scd.get_all_game_names()
     # Display DataFrames
-    date_selected = st.selectbox("Select a DataFrame to view", dates)
+    selected_date = st.date_input("Select a Date to view",value=dates[0], min_value=min(dates),max_value=max(dates),).strftime("%Y-%m-%d")
 
     # Sets subheader for the section
-    st.subheader("Steam Data for " + date_selected)
+    st.subheader("Steam Data for " + selected_date)
     steam_data = scd.load_all_steam_data()
-    steam_data = steam_data[steam_data["Date Collected"]==date_selected]
+    steam_data = steam_data[steam_data["Date Collected"]==selected_date]
 
-    st.subheader(f"Tags Comparison ({date_selected})")
+    st.subheader(f"Tags Comparison ({selected_date})")
     
     try: 
         tag_count = steam_data['Tags'].explode().value_counts()
@@ -158,11 +159,16 @@ def compare_game_attributes_over_time():
 
     # Option to switch between Current and Peak counts
     metric_choice = st.radio(
-        "Select which player count to display:",
-        ("Current", "Peak"),
+        "**Select which attribute to display:**",
+        ("Current Player Count", "Peak Player Count","Recent Review Sentiment"),
         horizontal=True
     )
-
+    conversion = {
+        "Current Player Count":"Current",
+        "Peak Player Count":"Peak",
+        "Recent Review Sentiment":"Recent Review Score",
+        "Rank Placement":"Rank"
+    }
     # If there are games selected, display their trends
     if st.session_state.game_list:
         data = vf.get_game_data_over_time(set(st.session_state.game_list))
@@ -176,10 +182,10 @@ def compare_game_attributes_over_time():
         fig = px.line(
             data,
             x="Date Collected",
-            y=metric_choice,
+            y=conversion[metric_choice],
             color="Game",
-            title=f"{metric_choice} Player Count Over Time",
-            labels={metric_choice: f"{metric_choice} Player Count", "Date Collected": "Date"},
+            title=f"{metric_choice} Over Time",
+            labels={metric_choice: f"{metric_choice} Value", "Date Collected": "Date"},
             markers=True
         )
         st.plotly_chart(fig, use_container_width=True)
@@ -191,12 +197,12 @@ def help():
     This is a dashboard that allows you to compare Steam game data from different months.
     * **Overview:** Compare the data from two different dates.
     * **Tag Evaluation:** See the importance and distribution of tags in the data.
-    * **Game Trend:** See how the player counts fluctuate for multiple games over time.
+    * **Game Trend:** See how games' attributes, such as player counts, rank, and player sentiment, change over time.
     """)
 
     st.header("Data Dictionary")
     st.markdown("""
-    * **Game:** The name of the game
+    * **Game:** The title of the game
     * **Current:** The current number of players when the data was collected
     * **Peak:** The peak number of players that day
     * **Player Hours:** The number of hours played that day
